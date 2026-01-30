@@ -1,5 +1,9 @@
 # Web Any Paper (WAP)
 
+<p align="center">
+  <img src="logo.jpg" alt="WAP logo" width="140" />
+</p>
+
 WAP is a static site that turns papers into bilingual (EN/中文) and dual-level (HS/Grad) web pages. Each paper is its **own** HTML/CSS/JS bundle.
 
 ## Structure
