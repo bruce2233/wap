@@ -50,7 +50,7 @@ jobs:
           MODEL: codex-xhigh
         run: |
           BASE_URL="${BASE_URL:-https://openrouter.ai/api/v1}"
-          codex exec --full-auto --search --sandbox workspace-write \
+          codex exec --full-auto --sandbox workspace-write \
             -m "$MODEL" \
             -c "model_provider=openrouter" \
             -c "model_providers.openrouter.base_url=$BASE_URL" \
