@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HS English | Length Generalization in Hierarchical Sparse Attention</title>
+  <meta name="description" content="HS English overview of Understanding and Improving Length Generalization in Hierarchical Sparse Attention Models." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <span>WAP PAPER</span>
+        <h1>Length Generalization in Hierarchical Sparse Attention</h1>
+      </div>
+      <nav class="nav-links">
+        <a href="/">WAP Index</a>
+        <a href="index.html">All Versions</a>
+        <a href="grad-en.html">Grad EN</a>
+        <a href="hs-zh.html">高中</a>
+        <a href="grad-zh.html">研究生</a>
+      </nav>
+    </header>
+
+    <section class="hero reveal">
+      <div class="hero-card">
+        <h2>Plain-language takeaway</h2>
+        <p>This paper shows how to make long-context LLMs actually work when the text gets enormous. It studies chunk-based sparse attention and finds three design rules that let a model trained on 4K tokens keep working on up to 32 million tokens.</p>
+        <div class="badge-row">
+          <span class="badge">HS · EN</span>
+          <span class="badge">Long Context</span>
+          <span class="badge">Sparse Attention</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>Paper facts</h2>
+        <div class="fact-grid">
+          <div class="fact-item">Authors: Jiaqi Leng, Xiang Hu, Junxiong Wang, Jianguo Li, Wei Wu, Yucheng Lu</div>
+          <div class="fact-item">Date: 20 Oct 2025</div>
+          <div class="fact-item">Venue: arXiv (cs.CL) preprint</div>
+          <div class="fact-item">arXiv: 2510.17196</div>
+          <div class="fact-item">DOI: 10.48550/arXiv.2510.17196</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problem" class="section reveal">
+      <h3>Problem setup / 背景</h3>
+      <p>LLMs usually read text with full attention, which becomes too slow and expensive as the text grows. Chunk-based sparse attention tries to read in blocks and only focus on a few important chunks. But different designs behave very differently, and it was unclear which parts were truly necessary for good long-context performance.</p>
+    </section>
+
+    <section id="method" class="section reveal">
+      <h3>Method / 方法</h3>
+      <p>The authors break down hierarchical sparse attention models and identify three “must-have” design rules:</p>
+      <ul>
+        <li><strong>Expressive chunk encoder + CLS token:</strong> Each chunk needs a strong mini-encoder and a dedicated summary token to represent the chunk for retrieval.</li>
+        <li><strong>Bypassing Residual Path (BRP):</strong> Global information should be injected back into token representations, not only used for selection.</li>
+        <li><strong>Enforced selection sparsity in pre-training:</strong> The model must learn to choose a small set of chunks during training, so test-time doesn’t feel like a distribution shift.</li>
+      </ul>
+    </section>
+
+    <section id="experiments" class="section reveal">
+      <h3>Experiments & Results / 实验与结果</h3>
+      <p>The paper runs comprehensive ablations to test these components. The full design reaches strong length extrapolation without extra training on long inputs.</p>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <h4>4K → 32M</h4>
+          <span>Trained on 4K context; evaluated up to 32,000,000 tokens.</span>
+        </div>
+        <div class="metric-card">
+          <h4>Benchmarks</h4>
+          <span>Generalizes on RULER and BABILong.</span>
+        </div>
+        <div class="metric-card">
+          <h4>Training-free</h4>
+          <span>No extra long-context finetuning required.</span>
+        </div>
+        <div class="metric-card">
+          <h4>Key finding</h4>
+          <span>All three design rules are critical.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="limitations" class="section reveal">
+      <h3>Limitations / 局限</h3>
+      <p>The abstract does not list explicit limitations, so the following are reasonable cautions: results are shown on specific long-context benchmarks, the paper is a preprint, and code/resources are not listed on arXiv. Real-world long-document performance and efficiency trade-offs still need more evidence.</p>
+    </section>
+
+    <section id="resources" class="section reveal">
+      <h3>Resources / 资源</h3>
+      <div class="resource-list">
+        <div class="resource">
+          <span>Paper (arXiv abstract)</span>
+          <a href="https://arxiv.org/abs/2510.17196" target="_blank" rel="noreferrer">Open</a>
+        </div>
+        <div class="resource">
+          <span>PDF</span>
+          <a href="https://arxiv.org/pdf/2510.17196.pdf" target="_blank" rel="noreferrer">Download</a>
+        </div>
+        <div class="resource">
+          <span>DOI</span>
+          <a href="https://doi.org/10.48550/arXiv.2510.17196" target="_blank" rel="noreferrer">10.48550/arXiv.2510.17196</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation" class="section reveal">
+      <h3>Suggested citation / 推荐引用</h3>
+      <div class="citation">
+        Leng, Jiaqi, Xiang Hu, Junxiong Wang, Jianguo Li, Wei Wu, and Yucheng Lu. 2025. “Understanding and Improving Length Generalization in Hierarchical Sparse Attention Models.” arXiv:2510.17196. https://doi.org/10.48550/arXiv.2510.17196.
+      </div>
+      <button class="copy-btn" type="button" data-copy="Leng, Jiaqi, Xiang Hu, Junxiong Wang, Jianguo Li, Wei Wu, and Yucheng Lu. 2025. Understanding and Improving Length Generalization in Hierarchical Sparse Attention Models. arXiv:2510.17196. https://doi.org/10.48550/arXiv.2510.17196.">Copy citation</button>
+    </section>
+
+    <footer class="footer">This is the HS English version.</footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

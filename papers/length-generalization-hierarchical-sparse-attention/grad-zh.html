@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>研究生中文 | 分层稀疏注意力的长度泛化</title>
+  <meta name="description" content="研究生中文解读：Understanding and Improving Length Generalization in Hierarchical Sparse Attention Models." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <span>WAP PAPER</span>
+        <h1>分层稀疏注意力的长度泛化</h1>
+      </div>
+      <nav class="nav-links">
+        <a href="/">WAP Index</a>
+        <a href="index.html">所有版本</a>
+        <a href="hs-en.html">HS EN</a>
+        <a href="grad-en.html">Grad EN</a>
+        <a href="hs-zh.html">高中</a>
+      </nav>
+    </header>
+
+    <section class="hero reveal">
+      <div class="hero-card">
+        <h2>研究生要点</h2>
+        <p>论文系统拆解分层稀疏注意力模型，指出三条关键设计原则，能够实现“无需长上下文再训练”的长度外推：在 4K 训练上下文下，测试可扩展至 32M tokens（RULER、BABILong）。</p>
+        <div class="badge-row">
+          <span class="badge">研究生 · 中文</span>
+          <span class="badge">Hierarchical Sparse Attention</span>
+          <span class="badge">Length Extrapolation</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>论文信息</h2>
+        <div class="fact-grid">
+          <div class="fact-item">作者：Jiaqi Leng, Xiang Hu, Junxiong Wang, Jianguo Li, Wei Wu, Yucheng Lu</div>
+          <div class="fact-item">日期：2025-10-20</div>
+          <div class="fact-item">会议/期刊：arXiv (cs.CL) 预印本</div>
+          <div class="fact-item">arXiv：2510.17196</div>
+          <div class="fact-item">DOI：10.48550/arXiv.2510.17196</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problem" class="section reveal">
+      <h3>Problem setup / 背景</h3>
+      <p>标准注意力具有二次复杂度，长上下文推理成本极高。稀疏或线性替代方案虽然可扩展，但往往牺牲长程信息。分层稀疏注意力通过“块级编码 + 选择性检索”降低成本，但哪些结构真正决定长度外推能力尚不清晰。</p>
+    </section>
+
+    <section id="method" class="section reveal">
+      <h3>Method / 方法</h3>
+      <p>作者构建统一框架并进行系统消融，结合理论动机解释块内处理与“landmark”生成的必要性，归纳出三条核心设计：</p>
+      <ul>
+        <li><strong>强表达块编码器 + CLS 汇总 token：</strong> 需要非线性块内表示与专用汇总 token，才能可靠检索相关块。</li>
+        <li><strong>Bypassing Residual Path (BRP)：</strong> 检索得到的全局信息必须回流到 token 表示，避免只在选择层生效。</li>
+        <li><strong>训练时强制稀疏选择：</strong> 通过稀疏化选择减少训练/测试分布漂移，提升长上下文外推。</li>
+      </ul>
+    </section>
+
+    <section id="experiments" class="section reveal">
+      <h3>Experiments & Results / 实验与结果</h3>
+      <p>消融实验验证三条原则缺一不可；组合后的设计在不增加长上下文再训练的情况下实现 SOTA 级别的长度泛化。</p>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <h4>4K → 32M</h4>
+          <span>训练 4K tokens，测试可到 3,200 万。</span>
+        </div>
+        <div class="metric-card">
+          <h4>RULER + BABILong</h4>
+          <span>长上下文评测基准。</span>
+        </div>
+        <div class="metric-card">
+          <h4>Training-free</h4>
+          <span>无需长文本再训练即可外推。</span>
+        </div>
+        <div class="metric-card">
+          <h4>消融结论</h4>
+          <span>任一核心设计移除都会显著下降。</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="limitations" class="section reveal">
+      <h3>Limitations / 局限</h3>
+      <p>摘要未列出明确局限。可预期的限制包括：结果集中在特定基准，代码/项目页未在 arXiv 标注，实际部署的时延与内存开销尚不明确。建议后续在检索增强、多文档 QA 与长对话等场景进一步验证。</p>
+    </section>
+
+    <section id="resources" class="section reveal">
+      <h3>Resources / 资源</h3>
+      <div class="resource-list">
+        <div class="resource">
+          <span>论文摘要（arXiv）</span>
+          <a href="https://arxiv.org/abs/2510.17196" target="_blank" rel="noreferrer">打开</a>
+        </div>
+        <div class="resource">
+          <span>PDF</span>
+          <a href="https://arxiv.org/pdf/2510.17196.pdf" target="_blank" rel="noreferrer">下载</a>
+        </div>
+        <div class="resource">
+          <span>DOI</span>
+          <a href="https://doi.org/10.48550/arXiv.2510.17196" target="_blank" rel="noreferrer">10.48550/arXiv.2510.17196</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation" class="section reveal">
+      <h3>Suggested citation / 推荐引用</h3>
+      <div class="citation">
+        Leng, Jiaqi, Xiang Hu, Junxiong Wang, Jianguo Li, Wei Wu, and Yucheng Lu. 2025. “Understanding and Improving Length Generalization in Hierarchical Sparse Attention Models.” arXiv:2510.17196. https://doi.org/10.48550/arXiv.2510.17196.
+      </div>
+      <button class="copy-btn" type="button" data-copy="Leng, Jiaqi, Xiang Hu, Junxiong Wang, Jianguo Li, Wei Wu, and Yucheng Lu. 2025. Understanding and Improving Length Generalization in Hierarchical Sparse Attention Models. arXiv:2510.17196. https://doi.org/10.48550/arXiv.2510.17196.">复制引用</button>
+    </section>
+
+    <footer class="footer">这是研究生中文版本。</footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
