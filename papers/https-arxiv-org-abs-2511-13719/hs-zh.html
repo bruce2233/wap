@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>多模态基础模型的空间智能扩展 | 高中中文</title>
+  <meta name="description" content="面向高中读者的 SenseNova-SI 论文导读。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/papers/https-arxiv-org-abs-2511-13719/styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero reveal">
+      <div>
+        <div class="eyebrow">WAP 论文 / 高中 / 中文</div>
+        <h1>多模态基础模型的空间智能扩展</h1>
+        <p class="subtitle">高中友好版本，按论文叙事顺序讲清楚：动机 → 数据扩展 → 实验结果 → 分析。</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="/papers/https-arxiv-org-abs-2511-13719/index.html">全部版本</a>
+          <a class="btn" href="/papers/https-arxiv-org-abs-2511-13719/grad-zh.html">研究生 中文</a>
+          <a class="btn" href="/papers/https-arxiv-org-abs-2511-13719/hs-en.html">HS EN</a>
+          <a class="btn" href="/papers/https-arxiv-org-abs-2511-13719/grad-en.html">Grad EN</a>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="panel-title">论文信息</div>
+        <div class="meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">作者</span>
+            <div class="meta-value">Zhongang Cai, Ruisi Wang, Chenyang Gu, Fanyi Pu, Junxiang Xu, Yubo Wang, Wanqi Yin, Zhitao Yang, Chen Wei, Qingping Sun, Tongxi Zhou, Jiaqi Li, Hui En Pang, Oscar Qian, Yukun Wei, Zhiqian Lin, Xuanke Shi, Kewang Deng, Xiaoyang Han, Zukai Chen, Xiangyu Fan, Hanming Deng, Lewei Lu, Liang Pan, Bo Li, Ziwei Liu, Quan Wang, Dahua Lin, Lei Yang</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">日期</span>
+            <div class="meta-value">初稿 2025-11-17，v3 修订 2025-12-30。</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">核心观点</span>
+            <div class="meta-value">用超大规模空间数据训练，可以显著提升模型空间推理能力。</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">模型</span>
+            <div class="meta-value">基于 Qwen3-VL、InternVL3、BAGEL 的 SenseNova-SI。</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="section-nav reveal" aria-label="页面目录">
+      <a href="#abstract">摘要</a>
+      <a href="#motivation">动机</a>
+      <a href="#data">数据扩展</a>
+      <a href="#benchmarks">评测</a>
+      <a href="#results">结果</a>
+      <a href="#analysis">分析</a>
+      <a href="#impact">意义</a>
+      <a href="#resources">资源</a>
+      <a href="#citation">引用</a>
+    </nav>
+
+    <section id="abstract" class="chapter reveal" data-section>
+      <h2>摘要（通俗版）</h2>
+      <p>多模态大模型可以理解图像和文字，但对“空间关系”的把握仍不够。论文通过收集并扩展 800 万条空间推理数据，训练出 SenseNova-SI 模型，让空间理解能力明显提升。</p>
+      <div class="callout">关键点：不改模型结构，只靠数据规模就能显著提升空间智能。</div>
+    </section>
+
+    <section id="motivation" class="chapter reveal" data-section>
+      <h2>为什么空间智能难？</h2>
+      <p>空间智能意味着理解物体位置、大小、遮挡、视角等关系。模型常常能描述图片，但一旦涉及“左/右/前/后/角度”等空间问题就容易出错。</p>
+      <div class="highlight-row">
+        <div class="highlight-card">
+          <strong>问题</strong>
+          <div>空间推理数据太少，模型学不到规律。</div>
+        </div>
+        <div class="highlight-card">
+          <strong>假设</strong>
+          <div>扩大空间训练数据就能提升能力。</div>
+        </div>
+        <div class="highlight-card">
+          <strong>方法</strong>
+          <div>建设 800 万规模的数据集并微调模型。</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="data" class="chapter reveal" data-section>
+      <h2>SenseNova-SI-8M 数据扩展</h2>
+      <p>SenseNova-SI-8M 覆盖多种空间任务：三维理解、视角变化、相对位置判断等，并按能力维度进行组织。作者同时公开 80 万子集，方便研究者分析数据规模规律。</p>
+      <div class="highlight-row">
+        <div class="highlight-card">
+          <strong>数据规模</strong>
+          <div>8M 样本（公开 800K）。</div>
+        </div>
+        <div class="highlight-card">
+          <strong>组织方式</strong>
+          <div>按空间能力分类，便于分级训练。</div>
+        </div>
+        <div class="highlight-card">
+          <strong>基座模型</strong>
+          <div>Qwen3-VL、InternVL3、BAGEL。</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="benchmarks" class="chapter reveal" data-section>
+      <h2>评测任务</h2>
+      <ul>
+        <li>VSI-Bench、MMSI：图像空间推理。</li>
+        <li>MindCube、ViewSpatial、SITE：3D 与视角推理。</li>
+        <li>MMBench-En：通用多模态能力，防止“偏科”。</li>
+      </ul>
+    </section>
+
+    <section id="results" class="chapter reveal" data-section>
+      <h2>关键结果</h2>
+      <div class="data-grid">
+        <div class="data-chip">VSI-Bench: 68.7%</div>
+        <div class="data-chip">MMSI: 43.3%</div>
+        <div class="data-chip">MindCube: 85.6%</div>
+        <div class="data-chip">ViewSpatial: 54.6%</div>
+        <div class="data-chip">SITE: 50.1%</div>
+        <div class="data-chip">MMBench-En: 84.9%</div>
+      </div>
+      <p>这些分数显示模型在空间任务上明显进步，同时保持一般图像理解能力。</p>
+    </section>
+
+    <section id="analysis" class="chapter reveal" data-section>
+      <h2>论文分析</h2>
+      <p>作者研究数据规模带来的趋势，并指出模型可能出现“捷径学习”。他们还展示空间思考过程（Spatial CoT），帮助理解模型是如何推理的。</p>
+      <div class="callout">结论：数据扩展有效，但仍需防止模型靠表面线索作答。</div>
+    </section>
+
+    <section id="impact" class="chapter reveal" data-section>
+      <h2>意义</h2>
+      <p>更强的空间智能对机器人、自动驾驶、三维世界理解都很关键。该工作证明“数据规模”是提升空间智能的重要手段。</p>
+    </section>
+
+    <section id="resources" class="chapter reveal" data-section>
+      <h2>资源</h2>
+      <div class="resource-list">
+        <div class="resource-item">
+          <span>arXiv 摘要</span>
+          <a href="https://arxiv.org/abs/2511.13719" target="_blank" rel="noreferrer">2511.13719</a>
+        </div>
+        <div class="resource-item">
+          <span>论文 PDF</span>
+          <a href="https://arxiv.org/pdf/2511.13719.pdf" target="_blank" rel="noreferrer">下载 PDF</a>
+        </div>
+        <div class="resource-item">
+          <span>代码</span>
+          <a href="https://github.com/OpenSenseNova/SenseNova-SI" target="_blank" rel="noreferrer">OpenSenseNova/SenseNova-SI</a>
+        </div>
+        <div class="resource-item">
+          <span>模型</span>
+          <a href="https://huggingface.co/collections/sensenova/sensenova-si" target="_blank" rel="noreferrer">Hugging Face 集合</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation" class="chapter reveal" data-section>
+      <h2>引用</h2>
+      <pre id="citation-text" class="citation">@article{cai2025scaling,
+  title={Scaling Spatial Intelligence with Multimodal Foundation Models},
+  author={Cai, Zhongang and Wang, Ruisi and Gu, Chenyang and Pu, Fanyi and Xu, Junxiang and Wang, Yubo and Yin, Wanqi and Yang, Zhitao and Wei, Chen and Sun, Qingping and Zhou, Tongxi and Li, Jiaqi and Pang, Hui En and Qian, Oscar and Wei, Yukun and Lin, Zhiqian and Shi, Xuanke and Deng, Kewang and Han, Xiaoyang and Chen, Zukai and Fan, Xiangyu and Deng, Hanming and Lu, Lewei and Pan, Liang and Li, Bo and Liu, Ziwei and Wang, Quan and Lin, Dahua and Yang, Lei},
+  journal={arXiv preprint arXiv:2511.13719},
+  year={2025}
+}</pre>
+      <button class="copy-btn" data-copy-target="citation-text">复制 BibTeX</button>
+    </section>
+
+    <footer class="footer">WAP - standalone paper narratives for every reader.</footer>
+  </div>
+
+  <script src="/papers/https-arxiv-org-abs-2511-13719/script.js"></script>
+</body>
+</html>

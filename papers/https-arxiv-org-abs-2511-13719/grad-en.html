@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scaling Spatial Intelligence with Multimodal Foundation Models | Grad EN</title>
+  <meta name="description" content="Graduate-level walkthrough of Scaling Spatial Intelligence with Multimodal Foundation Models (SenseNova-SI)." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/papers/https-arxiv-org-abs-2511-13719/styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero reveal">
+      <div>
+        <div class="eyebrow">WAP PAPER / GRAD / EN</div>
+        <h1>Scaling Spatial Intelligence with Multimodal Foundation Models</h1>
+        <p class="subtitle">Technical narrative of SenseNova-SI, mirroring the paper structure: spatial motivation → data scaling → training recipes → benchmark suite → quantitative + qualitative analysis.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="/papers/https-arxiv-org-abs-2511-13719/index.html">All Versions</a>
+          <a class="btn" href="/papers/https-arxiv-org-abs-2511-13719/hs-en.html">HS EN</a>
+          <a class="btn" href="/papers/https-arxiv-org-abs-2511-13719/hs-zh.html">高中 中文</a>
+          <a class="btn" href="/papers/https-arxiv-org-abs-2511-13719/grad-zh.html">研究生 中文</a>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="panel-title">Paper Facts</div>
+        <div class="meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">Authors</span>
+            <div class="meta-value">Zhongang Cai, Ruisi Wang, Chenyang Gu, Fanyi Pu, Junxiang Xu, Yubo Wang, Wanqi Yin, Zhitao Yang, Chen Wei, Qingping Sun, Tongxi Zhou, Jiaqi Li, Hui En Pang, Oscar Qian, Yukun Wei, Zhiqian Lin, Xuanke Shi, Kewang Deng, Xiaoyang Han, Zukai Chen, Xiangyu Fan, Hanming Deng, Lewei Lu, Liang Pan, Bo Li, Ziwei Liu, Quan Wang, Dahua Lin, Lei Yang</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Date</span>
+            <div class="meta-value">Submitted Nov 17, 2025; revised Dec 30, 2025 (v3).</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Focus</span>
+            <div class="meta-value">Spatial reasoning and scale laws for multimodal foundation models.</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Artifacts</span>
+            <div class="meta-value">SenseNova-SI-8M dataset, SenseNova-SI model family, open-source code.</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="section-nav reveal" aria-label="Page sections">
+      <a href="#abstract">Abstract</a>
+      <a href="#intro">Introduction</a>
+      <a href="#data">SenseNova-SI Data</a>
+      <a href="#training">Training Recipe</a>
+      <a href="#benchmarks">Benchmarks</a>
+      <a href="#results">Results</a>
+      <a href="#analysis">Analysis</a>
+      <a href="#limitations">Limitations</a>
+      <a href="#resources">Resources</a>
+      <a href="#citation">Citation</a>
+    </nav>
+
+    <section id="abstract" class="chapter reveal" data-section>
+      <h2>Abstract (technical recap)</h2>
+      <p>The paper argues that spatial intelligence remains a bottleneck for multimodal foundation models. By scaling spatially grounded data (SenseNova-SI-8M) and keeping model architectures fixed, the authors show systematic gains across 3D/spatial benchmarks while preserving general VLM performance.</p>
+      <div class="callout">SenseNova-SI is framed as a data-scaling study rather than an architectural change.</div>
+    </section>
+
+    <section id="intro" class="chapter reveal" data-section>
+      <h2>Introduction & problem framing</h2>
+      <p>Large multimodal models handle captioning and QA but underperform on spatial layouts, 3D perspective, and geometric reasoning. The paper frames this as a data deficiency problem: existing training corpora underrepresent spatial tasks, so models learn shortcuts.</p>
+      <div class="highlight-row">
+        <div class="highlight-card">
+          <strong>Core hypothesis</strong>
+          <div>Scaling spatially supervised data can unlock spatial reasoning without new architectures.</div>
+        </div>
+        <div class="highlight-card">
+          <strong>Contribution</strong>
+          <div>A new 8M-scale spatial dataset + systematic scaling experiments.</div>
+        </div>
+        <div class="highlight-card">
+          <strong>Outcome</strong>
+          <div>State-of-the-art results on VSI-Bench, MindCube, ViewSpatial, SITE.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="data" class="chapter reveal" data-section>
+      <h2>SenseNova-SI data scaling</h2>
+      <p>SenseNova-SI-8M aggregates 8 million spatial tasks spanning multi-view geometry, 3D layout inference, relative position, and embodied reasoning. The dataset is structured as a taxonomy of spatial skills and formatted for multimodal training pipelines.</p>
+      <div class="highlight-row">
+        <div class="highlight-card">
+          <strong>Full dataset</strong>
+          <div>SenseNova-SI-8M (8M samples).</div>
+        </div>
+        <div class="highlight-card">
+          <strong>Public subset</strong>
+          <div>SenseNova-SI-800K for research and scaling-law evaluation.</div>
+        </div>
+        <div class="highlight-card">
+          <strong>Spatial task mix</strong>
+          <div>3D reasoning, viewpoint changes, layout and bounding boxes.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="training" class="chapter reveal" data-section>
+      <h2>Training recipe & model family</h2>
+      <p>The paper keeps architectures fixed and fine-tunes three foundation backbones: Qwen3-VL, InternVL3, and BAGEL. The SenseNova-SI variants share the same pretraining pipelines but inject spatial data at scale.</p>
+      <div class="highlight-row">
+        <div class="highlight-card">
+          <strong>Backbones</strong>
+          <div>Qwen3-VL, InternVL3, BAGEL.</div>
+        </div>
+        <div class="highlight-card">
+          <strong>Scaling law</strong>
+          <div>Scaling analysis shows consistent gains as spatial data increases.</div>
+        </div>
+        <div class="highlight-card">
+          <strong>Reasoning mode</strong>
+          <div>Spatial chain-of-thought used to reveal intermediate reasoning.</div>
+        </div>
+      </div>
+      <p>The authors measure both in-domain spatial improvements and out-of-domain general VLM performance to ensure no regression.</p>
+    </section>
+
+    <section id="benchmarks" class="chapter reveal" data-section>
+      <h2>Benchmark suite</h2>
+      <p>Evaluation covers specialized spatial tests and general VLM checks:</p>
+      <ul>
+        <li><strong>VSI-Bench + MMSI</strong>: spatial questions in real images.</li>
+        <li><strong>MindCube, ViewSpatial, SITE</strong>: 3D reasoning, perspective, and spatial transformations.</li>
+        <li><strong>MMBench-En</strong>: general multimodal comprehension to check for trade-offs.</li>
+      </ul>
+    </section>
+
+    <section id="results" class="chapter reveal" data-section>
+      <h2>Quantitative results</h2>
+      <p>SenseNova-SI reports new best scores across spatial benchmarks while maintaining strong general VLM accuracy. Selected results from the paper:</p>
+      <div class="data-grid">
+        <div class="data-chip">VSI-Bench: 68.7%</div>
+        <div class="data-chip">MMSI: 43.3%</div>
+        <div class="data-chip">MindCube: 85.6%</div>
+        <div class="data-chip">ViewSpatial: 54.6%</div>
+        <div class="data-chip">SITE: 50.1%</div>
+        <div class="data-chip">MMBench-En: 84.9%</div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Benchmark</th>
+            <th>SenseNova-SI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>VSI-Bench</td>
+            <td>68.7</td>
+          </tr>
+          <tr>
+            <td>MindCube</td>
+            <td>85.6</td>
+          </tr>
+          <tr>
+            <td>ViewSpatial</td>
+            <td>54.6</td>
+          </tr>
+          <tr>
+            <td>MMBench-En</td>
+            <td>84.9</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="analysis" class="chapter reveal" data-section>
+      <h2>Analysis & scaling trends</h2>
+      <p>The paper emphasizes scaling trends: performance improves with dataset size (hundreds of thousands to millions). They also analyze error types (spatial shortcuts, object counting) and provide qualitative examples of improved reasoning in 3D scenes.</p>
+      <div class="callout">Spatial chain-of-thought is used to display intermediate reasoning steps, suggesting emergent spatial planning.</div>
+    </section>
+
+    <section id="limitations" class="chapter reveal" data-section>
+      <h2>Limitations & risks</h2>
+      <p>The authors note that spatial intelligence is still far from perfect: models can overfit to dataset cues, struggle with precise metric geometry, and incur high compute costs for large-scale spatial datasets.</p>
+      <p>Future work includes stronger synthetic data, better 3D supervision, and evaluating in embodied agents.</p>
+    </section>
+
+    <section id="resources" class="chapter reveal" data-section>
+      <h2>Resources</h2>
+      <div class="resource-list">
+        <div class="resource-item">
+          <span>arXiv Abstract</span>
+          <a href="https://arxiv.org/abs/2511.13719" target="_blank" rel="noreferrer">2511.13719</a>
+        </div>
+        <div class="resource-item">
+          <span>Paper PDF</span>
+          <a href="https://arxiv.org/pdf/2511.13719.pdf" target="_blank" rel="noreferrer">Download PDF</a>
+        </div>
+        <div class="resource-item">
+          <span>Codebase</span>
+          <a href="https://github.com/OpenSenseNova/SenseNova-SI" target="_blank" rel="noreferrer">OpenSenseNova/SenseNova-SI</a>
+        </div>
+        <div class="resource-item">
+          <span>Models</span>
+          <a href="https://huggingface.co/collections/sensenova/sensenova-si" target="_blank" rel="noreferrer">SenseNova-SI on Hugging Face</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation" class="chapter reveal" data-section>
+      <h2>Citation</h2>
+      <pre id="citation-text" class="citation">@article{cai2025scaling,
+  title={Scaling Spatial Intelligence with Multimodal Foundation Models},
+  author={Cai, Zhongang and Wang, Ruisi and Gu, Chenyang and Pu, Fanyi and Xu, Junxiang and Wang, Yubo and Yin, Wanqi and Yang, Zhitao and Wei, Chen and Sun, Qingping and Zhou, Tongxi and Li, Jiaqi and Pang, Hui En and Qian, Oscar and Wei, Yukun and Lin, Zhiqian and Shi, Xuanke and Deng, Kewang and Han, Xiaoyang and Chen, Zukai and Fan, Xiangyu and Deng, Hanming and Lu, Lewei and Pan, Liang and Li, Bo and Liu, Ziwei and Wang, Quan and Lin, Dahua and Yang, Lei},
+  journal={arXiv preprint arXiv:2511.13719},
+  year={2025}
+}</pre>
+      <button class="copy-btn" data-copy-target="citation-text">Copy BibTeX</button>
+    </section>
+
+    <footer class="footer">WAP - standalone paper narratives for every reader.</footer>
+  </div>
+
+  <script src="/papers/https-arxiv-org-abs-2511-13719/script.js"></script>
+</body>
+</html>
