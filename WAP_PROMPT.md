@@ -56,6 +56,9 @@ Use this prompt for Codex/agent runs to generate a **new paper page** in the WAP
 WAP 路由：
 - /<slug> -> /papers/<slug>/index.html（由 vercel.json rewrites 已配置）
 
+注意事项（必须遵守）：
+- 由于 /<slug> 使用 rewrites 映射到 /papers/<slug>/index.html，页面内所有资源与互链必须使用**绝对路径**：`/papers/<slug>/styles.css`、`/papers/<slug>/script.js`、`/papers/<slug>/hs-en.html` 等。否则在访问 /<slug> 时会错误解析为站点根路径导致 404 或样式/脚本失效。
+
 索引页更新：
 - 在 repo_path/index.html 中增加一张卡片：
   - href="/<slug>"
