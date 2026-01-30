@@ -50,12 +50,18 @@ jobs:
           MODEL: codex-xhigh
         run: |
           BASE_URL="${BASE_URL:-https://openrouter.ai/api/v1}"
-          codex exec --full-auto --sandbox workspace-write \
+          search_args=()
+          if codex --help | grep -q -- '--search'; then
+            search_args+=(--search)
+          else
+            search_args+=(-c "features.web_search_request=true")
+          fi
+          codex "${search_args[@]}" --sandbox workspace-write \
             -m "$MODEL" \
             -c "model_provider=openrouter" \
             -c "model_providers.openrouter.base_url=$BASE_URL" \
             -c "model_providers.openrouter.env_key=OPENROUTER_API_KEY" \
-            - < /tmp/codex_prompt.txt
+            exec --full-auto - < /tmp/codex_prompt.txt
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6
