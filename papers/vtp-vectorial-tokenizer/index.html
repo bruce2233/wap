@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VTP — Visual Tokenizer Pre-training (arXiv:2512.13687)</title>
+  <meta name="description" content="VTP: Towards Scalable Pre-training of Visual Tokenizers for Generation. Choose HS/Grad × EN/中文." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/papers/vtp-vectorial-tokenizer/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="/">WAP <span>Web Any Paper</span></a>
+    <div class="header-links">
+      <a href="/papers/vtp-vectorial-tokenizer/hs-en.html">HS · EN</a>
+      <a href="/papers/vtp-vectorial-tokenizer/grad-en.html">Grad · EN</a>
+      <a href="/papers/vtp-vectorial-tokenizer/hs-zh.html">高中 · 中文</a>
+      <a href="/papers/vtp-vectorial-tokenizer/grad-zh.html">研究生 · 中文</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero reveal" data-section id="top">
+      <div class="hero-text">
+        <p class="eyebrow">arXiv:2512.13687 · 2025-12-15</p>
+        <h1>VTP: Towards Scalable Pre-training of Visual Tokenizers for Generation</h1>
+        <p class="lede">VTP pre-trains image tokenizers with multi-objective signals so downstream generators scale with more data and compute.</p>
+        <div class="pill-row">
+          <span class="pill">Visual Tokenizer</span>
+          <span class="pill">Pre-training</span>
+          <span class="pill">Image Generation</span>
+        </div>
+        <div class="resource-list">
+          <a href="https://arxiv.org/abs/2512.13687" target="_blank" rel="noreferrer">arXiv</a>
+          <a href="https://arxiv.org/pdf/2512.13687.pdf" target="_blank" rel="noreferrer">PDF</a>
+          <a href="https://github.com/MiniMax-AI/VTP" target="_blank" rel="noreferrer">Code</a>
+          <a href="https://huggingface.co/collections/OpenBMB/vtp-675e7165f4c68d8c9c826742" target="_blank" rel="noreferrer">Models</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>Choose a version</h2>
+        <div class="version-grid">
+          <a class="version-card" href="/papers/vtp-vectorial-tokenizer/hs-en.html">
+            <span>HS · EN</span>
+            <strong>High school overview</strong>
+            <p class="note">Plain language, big-picture intuition.</p>
+          </a>
+          <a class="version-card" href="/papers/vtp-vectorial-tokenizer/grad-en.html">
+            <span>Grad · EN</span>
+            <strong>Graduate deep dive</strong>
+            <p class="note">Architecture, objectives, metrics.</p>
+          </a>
+          <a class="version-card" href="/papers/vtp-vectorial-tokenizer/hs-zh.html">
+            <span>高中 · 中文</span>
+            <strong>高中版中文概览</strong>
+            <p class="note">通俗解释、重点结论。</p>
+          </a>
+          <a class="version-card" href="/papers/vtp-vectorial-tokenizer/grad-zh.html">
+            <span>研究生 · 中文</span>
+            <strong>研究生版中文详解</strong>
+            <p class="note">方法细节与实验指标。</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" data-section id="quick">
+      <h2>Quick orientation</h2>
+      <div class="split">
+        <div>
+          <h3>What problem does it solve?</h3>
+          <p>Image generators rely on a tokenizer (often a VAE) to compress pixels into discrete tokens. Existing tokenizers optimize reconstruction, which does not scale well for semantic generation when compute grows.</p>
+        </div>
+        <div>
+          <h3>What is VTP?</h3>
+          <p>A visual tokenizer pre-trained with contrastive, self-supervised, and reconstruction objectives so its tokens carry both semantic and pixel-level signals for scalable generation.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">WAP · VTP landing page (HS/Grad × EN/中文).</footer>
+  <script src="/papers/vtp-vectorial-tokenizer/script.js"></script>
+</body>
+</html>

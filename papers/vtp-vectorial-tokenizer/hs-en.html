@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VTP — HS English</title>
+  <meta name="description" content="High-school English overview of VTP: Towards Scalable Pre-training of Visual Tokenizers for Generation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/papers/vtp-vectorial-tokenizer/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="/">WAP <span>Web Any Paper</span></a>
+    <div class="header-links">
+      <a class="is-current" href="/papers/vtp-vectorial-tokenizer/hs-en.html">HS · EN</a>
+      <a href="/papers/vtp-vectorial-tokenizer/grad-en.html">Grad · EN</a>
+      <a href="/papers/vtp-vectorial-tokenizer/hs-zh.html">高中 · 中文</a>
+      <a href="/papers/vtp-vectorial-tokenizer/grad-zh.html">研究生 · 中文</a>
+      <a href="/papers/vtp-vectorial-tokenizer/index.html">Index</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero reveal" id="overview" data-section>
+      <div class="hero-text">
+        <p class="eyebrow">High School · English</p>
+        <h1>VTP: Teaching image tokenizers to carry meaning, not just pixels.</h1>
+        <p class="lede">VTP pre-trains a visual tokenizer with multiple learning signals so generators improve when you scale data and compute.</p>
+        <div class="pill-row">
+          <span class="pill">Visual Tokenizer</span>
+          <span class="pill">Pre-training</span>
+          <span class="pill">Image Generation</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>Paper facts</h2>
+        <ul class="fact-list">
+          <li><strong>Title:</strong> Towards Scalable Pre-training of Visual Tokenizers for Generation</li>
+          <li><strong>Authors:</strong> Jingfeng Yao, Yuda Song, Yucong Zhou, Xinggang Wang</li>
+          <li><strong>Submitted:</strong> 15 Dec 2025 (v1)</li>
+          <li><strong>Institutions:</strong> Huazhong University of Science and Technology, MiniMax</li>
+          <li><strong>Venue:</strong> arXiv (cs.CV)</li>
+          <li><strong>DOI:</strong> 10.48550/arXiv.2512.13687</li>
+        </ul>
+        <div class="stat-grid" style="margin-top:16px;">
+          <div class="stat-card"><span>Zero-shot acc.</span><strong>78.2</strong></div>
+          <div class="stat-card"><span>rFID</span><strong>0.36</strong></div>
+          <div class="stat-card"><span>FID gain</span><strong>65.8%</strong></div>
+          <div class="stat-card"><span>Speedup</span><strong>4.1×</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="split">
+      <div>
+        <section class="section reveal" id="setup" data-section>
+          <h2>Problem setup (plain language)</h2>
+          <ul>
+            <li>Image generators first compress an image into discrete tokens using a visual tokenizer.</li>
+            <li>Most tokenizers only focus on pixel reconstruction, so the tokens miss high-level meaning.</li>
+            <li>When you scale training compute, generation quality stops improving because the tokens are not semantic enough.</li>
+          </ul>
+        </section>
+
+        <section class="section reveal" id="method" data-section>
+          <h2>Method in one page</h2>
+          <p>VTP is a ViT-based auto-encoder trained with three signals at once:</p>
+          <ul>
+            <li><strong>Contrastive:</strong> connect images with their text so tokens capture semantics.</li>
+            <li><strong>Self-supervised:</strong> mask parts of an image and learn to predict them (plus a self-distillation step).</li>
+            <li><strong>Reconstruction:</strong> rebuild pixels, then refine with a GAN stage for sharper details.</li>
+          </ul>
+          <p class="note">The mix balances meaning and pixel fidelity so downstream generators scale better.</p>
+        </section>
+
+        <section class="section reveal" id="results" data-section>
+          <h2>Experiments & results</h2>
+          <ul>
+            <li>Pre-trained on DataComp-1B (277M image-text pairs) and evaluated on ImageNet.</li>
+            <li>Zero-shot accuracy reaches 78.2 and reconstruction FID is 0.36.</li>
+            <li>Scaling pre-training FLOPs yields a 65.8% FID improvement for DiT training, while baselines plateau.</li>
+            <li>Converges 4.1× faster than a distillation-based tokenizer.</li>
+          </ul>
+        </section>
+
+        <section class="section reveal" id="limitations" data-section>
+          <h2>Limitations (as stated or implied)</h2>
+          <p>The paper does not list a dedicated limitations section. Based on the setup, VTP likely depends on large-scale data/compute and is mainly validated on ImageNet and DiT-style generators; generalization to other domains or generators still needs evidence.</p>
+        </section>
+
+        <section class="section reveal" id="resources" data-section>
+          <h2>Resources</h2>
+          <div class="resource-list">
+            <a href="https://arxiv.org/abs/2512.13687" target="_blank" rel="noreferrer">arXiv</a>
+            <a href="https://arxiv.org/pdf/2512.13687.pdf" target="_blank" rel="noreferrer">PDF</a>
+            <a href="https://github.com/MiniMax-AI/VTP" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://huggingface.co/collections/OpenBMB/vtp-675e7165f4c68d8c9c826742" target="_blank" rel="noreferrer">Hugging Face models</a>
+          </div>
+        </section>
+
+        <section class="section reveal" id="citation" data-section>
+          <h2>Suggested citation</h2>
+          <p>Yao, J., Song, Y., Zhou, Y., &amp; Wang, X. (2025). <em>Towards Scalable Pre-training of Visual Tokenizers for Generation</em>. arXiv:2512.13687.</p>
+        </section>
+      </div>
+
+      <aside class="section-nav">
+        <a href="#overview">Overview</a>
+        <a href="#setup">Problem</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#limitations">Limitations</a>
+        <a href="#resources">Resources</a>
+        <a href="#citation">Citation</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">HS · English version of VTP (arXiv:2512.13687).</footer>
+  <script src="/papers/vtp-vectorial-tokenizer/script.js"></script>
+</body>
+</html>

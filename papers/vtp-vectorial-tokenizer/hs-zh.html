@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VTP — 高中中文</title>
+  <meta name="description" content="VTP：视觉分词器可扩展预训练的高中中文版本。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/papers/vtp-vectorial-tokenizer/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="/">WAP <span>Web Any Paper</span></a>
+    <div class="header-links">
+      <a href="/papers/vtp-vectorial-tokenizer/hs-en.html">HS · EN</a>
+      <a href="/papers/vtp-vectorial-tokenizer/grad-en.html">Grad · EN</a>
+      <a class="is-current" href="/papers/vtp-vectorial-tokenizer/hs-zh.html">高中 · 中文</a>
+      <a href="/papers/vtp-vectorial-tokenizer/grad-zh.html">研究生 · 中文</a>
+      <a href="/papers/vtp-vectorial-tokenizer/index.html">Index</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero reveal" id="overview" data-section>
+      <div class="hero-text">
+        <p class="eyebrow">高中 · 中文</p>
+        <h1>VTP：让视觉分词器学到“语义”，而不只是像素。</h1>
+        <p class="lede">VTP 用多种训练信号预训练视觉分词器，使生成模型在扩大数据和算力时仍能提升。</p>
+        <div class="pill-row">
+          <span class="pill">视觉分词器</span>
+          <span class="pill">预训练</span>
+          <span class="pill">图像生成</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>论文信息</h2>
+        <ul class="fact-list">
+          <li><strong>标题：</strong>Towards Scalable Pre-training of Visual Tokenizers for Generation</li>
+          <li><strong>作者：</strong>Jingfeng Yao, Yuda Song, Yucong Zhou, Xinggang Wang</li>
+          <li><strong>提交日期：</strong>2025 年 12 月 15 日（v1）</li>
+          <li><strong>机构：</strong>华中科技大学、MiniMax</li>
+          <li><strong>发表：</strong>arXiv（cs.CV）</li>
+          <li><strong>DOI：</strong>10.48550/arXiv.2512.13687</li>
+        </ul>
+        <div class="stat-grid" style="margin-top:16px;">
+          <div class="stat-card"><span>零样本准确率</span><strong>78.2</strong></div>
+          <div class="stat-card"><span>rFID</span><strong>0.36</strong></div>
+          <div class="stat-card"><span>FID 提升</span><strong>65.8%</strong></div>
+          <div class="stat-card"><span>收敛速度</span><strong>4.1×</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="split">
+      <div>
+        <section class="section reveal" id="setup" data-section>
+          <h2>问题背景（通俗版）</h2>
+          <ul>
+            <li>图像生成模型先把图片压缩成离散“token”。</li>
+            <li>传统分词器只关注像素重建，学到的 token 不够“有语义”。</li>
+            <li>因此即使增加算力，生成质量也很难继续提升。</li>
+          </ul>
+        </section>
+
+        <section class="section reveal" id="method" data-section>
+          <h2>方法概览</h2>
+          <p>VTP 是一个 ViT 结构的自编码器，同时使用三种训练信号：</p>
+          <ul>
+            <li><strong>对比学习：</strong>把图像和文字对应起来，让 token 学会语义。</li>
+            <li><strong>自监督：</strong>遮住图像块再预测，并加入自蒸馏。</li>
+            <li><strong>重建：</strong>先用 MSE 重建，再用 GAN 微调细节。</li>
+          </ul>
+          <p class="note">这样既保留细节，又增强语义表达。</p>
+        </section>
+
+        <section class="section reveal" id="results" data-section>
+          <h2>实验与结果</h2>
+          <ul>
+            <li>使用 DataComp-1B（2.77 亿图文对）预训练，在 ImageNet 上评测。</li>
+            <li>零样本准确率 78.2，重建 rFID 仅 0.36。</li>
+            <li>随着预训练 FLOPs 增加，DiT 的 FID 可提升 65.8%。</li>
+            <li>训练收敛速度比蒸馏方法快 4.1×。</li>
+          </ul>
+        </section>
+
+        <section class="section reveal" id="limitations" data-section>
+          <h2>局限（论文未明确列出）</h2>
+          <p>论文没有专门的局限章节。从实验设置来看，VTP 依赖大规模数据和算力，主要在 ImageNet 与 DiT 场景验证，是否能推广到其他领域或生成器还需要更多证据。</p>
+        </section>
+
+        <section class="section reveal" id="resources" data-section>
+          <h2>资源</h2>
+          <div class="resource-list">
+            <a href="https://arxiv.org/abs/2512.13687" target="_blank" rel="noreferrer">论文页</a>
+            <a href="https://arxiv.org/pdf/2512.13687.pdf" target="_blank" rel="noreferrer">PDF</a>
+            <a href="https://github.com/MiniMax-AI/VTP" target="_blank" rel="noreferrer">代码</a>
+            <a href="https://huggingface.co/collections/OpenBMB/vtp-675e7165f4c68d8c9c826742" target="_blank" rel="noreferrer">模型</a>
+          </div>
+        </section>
+
+        <section class="section reveal" id="citation" data-section>
+          <h2>推荐引用</h2>
+          <p>Yao, J., Song, Y., Zhou, Y., &amp; Wang, X. (2025). <em>Towards Scalable Pre-training of Visual Tokenizers for Generation</em>. arXiv:2512.13687.</p>
+        </section>
+      </div>
+
+      <aside class="section-nav">
+        <a href="#overview">概览</a>
+        <a href="#setup">问题</a>
+        <a href="#method">方法</a>
+        <a href="#results">结果</a>
+        <a href="#limitations">局限</a>
+        <a href="#resources">资源</a>
+        <a href="#citation">引用</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">高中 · 中文版本（arXiv:2512.13687）。</footer>
+  <script src="/papers/vtp-vectorial-tokenizer/script.js"></script>
+</body>
+</html>

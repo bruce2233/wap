@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VTP — Grad English</title>
+  <meta name="description" content="Graduate-level English overview of VTP: Towards Scalable Pre-training of Visual Tokenizers for Generation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/papers/vtp-vectorial-tokenizer/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="/">WAP <span>Web Any Paper</span></a>
+    <div class="header-links">
+      <a href="/papers/vtp-vectorial-tokenizer/hs-en.html">HS · EN</a>
+      <a class="is-current" href="/papers/vtp-vectorial-tokenizer/grad-en.html">Grad · EN</a>
+      <a href="/papers/vtp-vectorial-tokenizer/hs-zh.html">高中 · 中文</a>
+      <a href="/papers/vtp-vectorial-tokenizer/grad-zh.html">研究生 · 中文</a>
+      <a href="/papers/vtp-vectorial-tokenizer/index.html">Index</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero reveal" id="overview" data-section>
+      <div class="hero-text">
+        <p class="eyebrow">Graduate · English</p>
+        <h1>VTP: Multi-objective pre-training for scalable visual tokenizers.</h1>
+        <p class="lede">A ViT-based tokenizer trained jointly with contrastive, self-supervised, and reconstruction objectives to make downstream image generators scale with additional compute.</p>
+        <div class="pill-row">
+          <span class="pill">VQ Tokenizer</span>
+          <span class="pill">Contrastive + SSL + Recon</span>
+          <span class="pill">DiT Scaling</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>Paper facts</h2>
+        <ul class="fact-list">
+          <li><strong>Title:</strong> Towards Scalable Pre-training of Visual Tokenizers for Generation</li>
+          <li><strong>Authors:</strong> Jingfeng Yao, Yuda Song, Yucong Zhou, Xinggang Wang</li>
+          <li><strong>Submitted:</strong> 15 Dec 2025 (v1)</li>
+          <li><strong>Institutions:</strong> Huazhong University of Science and Technology, MiniMax</li>
+          <li><strong>Venue:</strong> arXiv (cs.CV)</li>
+          <li><strong>DOI:</strong> 10.48550/arXiv.2512.13687</li>
+        </ul>
+        <div class="stat-grid" style="margin-top:16px;">
+          <div class="stat-card"><span>Zero-shot acc.</span><strong>78.2</strong></div>
+          <div class="stat-card"><span>rFID</span><strong>0.36</strong></div>
+          <div class="stat-card"><span>FID gain</span><strong>65.8%</strong></div>
+          <div class="stat-card"><span>Convergence</span><strong>4.1× faster</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="split">
+      <div>
+        <section class="section reveal" id="setup" data-section>
+          <h2>Problem setup</h2>
+          <p>Visual tokenizers (e.g., VQ-VAEs) compress images into discrete codes for autoregressive or diffusion-based generation. The paper identifies a scaling gap: pre-training with pixel reconstruction alone yields tokens that do not improve semantic generation when compute scales, leading to a pre-training scaling bottleneck.</p>
+        </section>
+
+        <section class="section reveal" id="method" data-section>
+          <h2>Method</h2>
+          <p><strong>Architecture.</strong> A ViT-based auto-encoder with vector quantization; a 12-layer text encoder (dim 768), a 4-layer ViT-L pixel decoder, and a latent dimension of 64 (with a 256 ablation). QKNorm is used for stable attention.</p>
+          <p><strong>Objectives.</strong> Joint training on three signals:</p>
+          <ul>
+            <li><strong>Self-supervised:</strong> DINOv2-style MIM plus self-distillation.</li>
+            <li><strong>Contrastive:</strong> CLIP-style image-text alignment, distilling OpenCLIP text embeddings from noisy images.</li>
+            <li><strong>Reconstruction:</strong> MSE stage followed by GAN fine-tuning with LPIPS + adversarial loss.</li>
+          </ul>
+        </section>
+
+        <section class="section reveal" id="results" data-section>
+          <h2>Experiments & results</h2>
+          <ul>
+            <li>Pre-training uses DataComp-1B (277M image-text samples) and follows DINOv2/OpenCLIP settings; evaluation is on ImageNet-1K.</li>
+            <li>Zero-shot accuracy reaches 78.2, and reconstruction rFID is 0.36.</li>
+            <li>Scaling tokenizer pre-training FLOPs improves DiT FID by 65.8% while existing tokenizers saturate.</li>
+            <li>Tokenizer convergence is 4.1× faster than distillation-based training.</li>
+          </ul>
+          <p class="note">The paper also reports a strong correlation between visual understanding metrics and downstream generation quality.</p>
+        </section>
+
+        <section class="section reveal" id="limitations" data-section>
+          <h2>Limitations (as stated or implied)</h2>
+          <p>The paper does not provide a dedicated limitations section. From the reported setup, VTP depends on large-scale image-text data and compute, and results are centered on ImageNet/DiT pipelines. Generalization to other domains and generators remains to be tested.</p>
+        </section>
+
+        <section class="section reveal" id="resources" data-section>
+          <h2>Resources</h2>
+          <div class="resource-list">
+            <a href="https://arxiv.org/abs/2512.13687" target="_blank" rel="noreferrer">arXiv</a>
+            <a href="https://arxiv.org/pdf/2512.13687.pdf" target="_blank" rel="noreferrer">PDF</a>
+            <a href="https://github.com/MiniMax-AI/VTP" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://huggingface.co/collections/OpenBMB/vtp-675e7165f4c68d8c9c826742" target="_blank" rel="noreferrer">Hugging Face models</a>
+          </div>
+        </section>
+
+        <section class="section reveal" id="citation" data-section>
+          <h2>Suggested citation</h2>
+          <p>Yao, J., Song, Y., Zhou, Y., &amp; Wang, X. (2025). <em>Towards Scalable Pre-training of Visual Tokenizers for Generation</em>. arXiv:2512.13687.</p>
+        </section>
+      </div>
+
+      <aside class="section-nav">
+        <a href="#overview">Overview</a>
+        <a href="#setup">Setup</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#limitations">Limitations</a>
+        <a href="#resources">Resources</a>
+        <a href="#citation">Citation</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">Grad · English version of VTP (arXiv:2512.13687).</footer>
+  <script src="/papers/vtp-vectorial-tokenizer/script.js"></script>
+</body>
+</html>
