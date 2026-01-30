@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en" data-lang="en" data-level="hs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Web Any Paper (WAP)</title>
+  <meta name="description" content="WAP: bilingual, dual-level paper pages with a simple GitHub workflow." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="gridline"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-label">WAP</span>
+      <span class="brand-id">Web Any Paper</span>
+    </div>
+    <nav class="navlinks">
+      <a href="/">
+        <span class="lang" data-lang="en">Index</span>
+        <span class="lang" data-lang="zh" lang="zh-Hans">索引</span>
+      </a>
+      <a href="#how">
+        <span class="lang" data-lang="en">Workflow</span>
+        <span class="lang" data-lang="zh" lang="zh-Hans">流程</span>
+      </a>
+      <a href="#about">
+        <span class="lang" data-lang="en">About</span>
+        <span class="lang" data-lang="zh" lang="zh-Hans">关于</span>
+      </a>
+    </nav>
+    <div class="toggles">
+      <div class="level-toggle" role="group" aria-label="Level toggle">
+        <span class="level-label">
+          <span class="lang" data-lang="en">Level</span>
+          <span class="lang" data-lang="zh" lang="zh-Hans">层级</span>
+        </span>
+        <button type="button" data-level-btn="hs" aria-pressed="true">
+          <span class="lang" data-lang="en">HS</span>
+          <span class="lang" data-lang="zh" lang="zh-Hans">高中</span>
+        </button>
+        <button type="button" data-level-btn="grad" aria-pressed="false">
+          <span class="lang" data-lang="en">Grad</span>
+          <span class="lang" data-lang="zh" lang="zh-Hans">研究生</span>
+        </button>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language toggle">
+        <button type="button" data-lang-btn="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang-btn="zh" aria-pressed="false">中文</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section id="index-view" class="view">
+      <div class="hero">
+        <div class="hero-text">
+          <div class="lang" data-lang="en">
+            <h1>WAP turns papers into bilingual, dual-level pages.</h1>
+            <p class="lede">Maintain everything in GitHub. Each paper becomes a clean URL: <strong>/paper-slug</strong>.</p>
+          </div>
+          <div class="lang" data-lang="zh" lang="zh-Hans">
+            <h1>WAP 把论文变成中英双版、双层级页面。</h1>
+            <p class="lede">全部用 GitHub 管理。每篇论文对应一个简洁 URL：<strong>/论文名</strong>。</p>
+          </div>
+          <div class="tag-row">
+            <span class="tag">Bilingual</span>
+            <span class="tag">HS + Grad</span>
+            <span class="tag">GitHub Workflow</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="lang" data-lang="en">
+            <h2>Quick actions</h2>
+            <ul>
+              <li>Use search to find a paper page.</li>
+              <li>Drop a JSON file to add a new paper.</li>
+              <li>Share: <span class="muted">wap.bryan2233.top/&lt;slug&gt;</span></li>
+            </ul>
+          </div>
+          <div class="lang" data-lang="zh" lang="zh-Hans">
+            <h2>快速入口</h2>
+            <ul>
+              <li>搜索论文页面。</li>
+              <li>新增一个 JSON 文件即可发布。</li>
+              <li>分享格式：<span class="muted">wap.bryan2233.top/&lt;slug&gt;</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="search-row">
+        <input id="search-input" type="search" placeholder="Search papers / 搜索论文" />
+        <div class="count" id="paper-count"></div>
+      </div>
+
+      <div id="paper-list" class="paper-grid"></div>
+
+      <section id="how" class="card">
+        <div class="lang" data-lang="en">
+          <h2>Workflow</h2>
+          <ol class="step-list">
+            <li>Add a new JSON file in <code>data/papers/</code>.</li>
+            <li>Update <code>data/papers.json</code> (or run the script).</li>
+            <li>Push to GitHub → Vercel deploys automatically.</li>
+          </ol>
+        </div>
+        <div class="lang" data-lang="zh" lang="zh-Hans">
+          <h2>流程</h2>
+          <ol class="step-list">
+            <li>在 <code>data/papers/</code> 新建论文 JSON。</li>
+            <li>更新 <code>data/papers.json</code>（或运行脚本）。</li>
+            <li>推送到 GitHub → Vercel 自动部署。</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="about" class="card">
+        <div class="lang" data-lang="en">
+          <h2>About WAP</h2>
+          <p>WAP is a static site with a client-side router. It renders bilingual, dual-level explanations from JSON. The same page supports both high school and graduate-level readers.</p>
+        </div>
+        <div class="lang" data-lang="zh" lang="zh-Hans">
+          <h2>关于 WAP</h2>
+          <p>WAP 是纯静态站点 + 前端路由，使用 JSON 渲染中英双版、双层级讲解。</p>
+        </div>
+      </section>
+    </section>
+
+    <section id="paper-view" class="view hidden">
+      <button id="back-btn" class="back-btn" type="button">← <span class="lang" data-lang="en">Back to index</span><span class="lang" data-lang="zh" lang="zh-Hans">返回索引</span></button>
+      <div id="paper-hero" class="paper-hero"></div>
+      <div id="paper-meta" class="paper-meta"></div>
+      <div id="paper-sections" class="paper-sections"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="lang" data-lang="en">
+      <p>WAP — Web Any Paper. Built for bilingual sharing and layered understanding.</p>
+    </div>
+    <div class="lang" data-lang="zh" lang="zh-Hans">
+      <p>WAP — Web Any Paper。用于中英双版与层级化理解。</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

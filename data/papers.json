@@ -1,0 +1,25 @@
+{
+  "updated": "2026-01-30",
+  "papers": [
+    {
+      "slug": "learning-to-discover-at-test-time",
+      "title": {
+        "en": "Learning to Discover at Test Time",
+        "zh": "测试时学习以“发现”为目标"
+      },
+      "summary": {
+        "hs": {
+          "en": "Keep learning during testing to beat the best known solution.",
+          "zh": "在测试时持续学习，超越当前最好解。"
+        },
+        "grad": {
+          "en": "Test-time RL optimized for a single best solution under continuous rewards.",
+          "zh": "在连续奖励问题上，测试时强化学习聚焦单一最优解。"
+        }
+      },
+      "arxivId": "2601.16175",
+      "date": "2026-01-22",
+      "tags": ["Test-Time Training", "Reinforcement Learning", "Discovery"]
+    }
+  ]
+}
