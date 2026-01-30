@@ -1,0 +1,49 @@
+name: Generate WAP Page
+
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: "Issue number to process"
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+jobs:
+  generate:
+    if: |
+      (github.event_name == 'issue_comment' && github.event.issue.pull_request == null && contains(github.event.comment.body, '/wap')) ||
+      (github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install beautifulsoup4 lxml pypdf
+
+      - name: Generate paper page
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python scripts/generate_wap_page.py \
+            --issue "${{ github.event.issue.number || github.event.inputs.issue }}" \
+            --prompt-file "skills/wap-paper-page/references/wap_prompt.md"
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "WAP: generate paper page"
+          branch: "wap/${{ github.run_id }}"
+          commit-message: "Generate WAP paper page"
+          body: "Automated WAP page generation via issue comment trigger."

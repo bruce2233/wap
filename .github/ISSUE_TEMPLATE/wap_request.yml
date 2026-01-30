@@ -1,0 +1,25 @@
+name: "WAP Page Request"
+description: "Request a new WAP paper page"
+title: "[WAP] <paper title>"
+labels: ["wap-request"]
+body:
+  - type: input
+    id: paper_query
+    attributes:
+      label: "Paper query"
+      description: "Title / arXiv / DOI"
+      placeholder: "Attention Is All You Need / 1706.03762"
+    validations:
+      required: true
+  - type: input
+    id: slug
+    attributes:
+      label: "Slug (optional)"
+      description: "URL path slug. Leave blank to auto-generate."
+      placeholder: "attention-is-all-you-need"
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Notes (optional)"
+      description: "Any special constraints or links to include."
+      placeholder: "Project page, code repo, specific figures to emphasize..."
