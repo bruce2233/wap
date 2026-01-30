@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/:slug", "destination": "/index.html" }
+    { "source": "/:slug((?!.*\\.).*)", "destination": "/papers/:slug/index.html" },
+    { "source": "/:slug((?!.*\\.).*)/", "destination": "/papers/:slug/index.html" }
   ]
 }

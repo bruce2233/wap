@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en" data-lang="en" data-level="hs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Learning to Discover at Test Time — arXiv:2601.16175</title>
+  <meta name="description" content="Bilingual, dual-level (high school + graduate) overview of Learning to Discover at Test Time (arXiv:2601.16175)." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/papers/learning-to-discover-at-test-time/styles.css" />
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="gridline"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <a class="brand-link" href="/">
+        <span class="brand-label">WAP</span>
+        <span class="brand-id">Web Any Paper</span>
+      </a>
+    </div>
+    <nav class="navlinks">
+      <a href="/">
+        <span class="lang" data-lang="en">Home</span>
+        <span class="lang" data-lang="zh" lang="zh-Hans">首页</span>
+      </a>
+      <a href="#overview">
+        <span class="lang" data-lang="en">Overview</span>
+        <span class="lang" data-lang="zh" lang="zh-Hans">概览</span>
+      </a>
+      <a href="#setup">
+        <span class="lang" data-lang="en">Setup</span>
+        <span class="lang" data-lang="zh" lang="zh-Hans">问题定义</span>
+      </a>
+      <a href="#method">
+        <span class="lang" data-lang="en">Method</span>
+        <span class="lang" data-lang="zh" lang="zh-Hans">方法</span>
+      </a>
+      <a href="#results">
+        <span class="lang" data-lang="en">Results</span>
+        <span class="lang" data-lang="zh" lang="zh-Hans">结果</span>
+      </a>
+      <a href="#resources">
+        <span class="lang" data-lang="en">Resources</span>
+        <span class="lang" data-lang="zh" lang="zh-Hans">资源</span>
+      </a>
+    </nav>
+    <div class="toggles">
+      <div class="level-toggle" role="group" aria-label="Level toggle">
+        <span class="level-label">
+          <span class="lang" data-lang="en">Level</span>
+          <span class="lang" data-lang="zh" lang="zh-Hans">层级</span>
+        </span>
+        <button type="button" data-level-btn="hs" aria-pressed="true">
+          <span class="lang" data-lang="en">HS</span>
+          <span class="lang" data-lang="zh" lang="zh-Hans">高中</span>
+        </button>
+        <button type="button" data-level-btn="grad" aria-pressed="false">
+          <span class="lang" data-lang="en">Grad</span>
+          <span class="lang" data-lang="zh" lang="zh-Hans">研究生</span>
+        </button>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language toggle">
+        <button type="button" data-lang-btn="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang-btn="zh" aria-pressed="false">中文</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero reveal" id="overview" style="animation-delay: 0.05s;">
+      <div class="hero-text">
+        <div class="lang" data-lang="en">
+          <div class="level" data-level="hs">
+            <p class="eyebrow">Learning to Discover at Test Time</p>
+            <h1>Keep learning during testing to beat the best known solution.</h1>
+            <p class="lede">A high-school friendly walkthrough of what the model does, why it works, and where it helped.</p>
+          </div>
+          <div class="level" data-level="grad">
+            <p class="eyebrow">Learning to Discover at Test Time</p>
+            <h1>Test-time RL optimized for a single best solution, not average reward.</h1>
+            <p class="lede">Graduate-level summary of the formal setup, objective, reuse strategy, and reported results.</p>
+          </div>
+        </div>
+        <div class="lang" data-lang="zh" lang="zh-Hans">
+          <div class="level" data-level="hs">
+            <p class="eyebrow">测试时学习以“发现”为目标</p>
+            <h1>在测试时持续学习，去超过当前最好解。</h1>
+            <p class="lede">高中生也能读懂的说明：做什么、为什么有效、带来了哪些改进。</p>
+          </div>
+          <div class="level" data-level="grad">
+            <p class="eyebrow">测试时学习以“发现”为目标</p>
+            <h1>面向单一最优解的测试时强化学习，而非平均回报。</h1>
+            <p class="lede">研究生级别的形式化定义、目标函数、复用策略与结果总结。</p>
+          </div>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Test-Time Training</span>
+          <span class="tag">Reinforcement Learning</span>
+          <span class="tag">Search + Reuse</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="lang" data-lang="en">
+          <h2>Paper facts</h2>
+          <ul>
+            <li><strong>Title:</strong> Learning to Discover at Test Time</li>
+            <li><strong>Authors:</strong> Mert Yuksekgonul, Daniel Koceja, Xinhao Li, Federico Bianchi, Jed McCaleb, Xiaolong Wang, Jan Kautz, Yejin Choi, James Zou, Carlos Guestrin, Yu Sun</li>
+            <li><strong>Submitted:</strong> 22 Jan 2026 (v1)</li>
+            <li><strong>Institutions:</strong> Stanford, NVIDIA, Astera Institute, UC San Diego, Together AI</li>
+          </ul>
+        </div>
+        <div class="lang" data-lang="zh" lang="zh-Hans">
+          <h2>论文信息</h2>
+          <ul>
+            <li><strong>标题：</strong>Learning to Discover at Test Time</li>
+            <li><strong>作者：</strong>Mert Yuksekgonul, Daniel Koceja, Xinhao Li, Federico Bianchi, Jed McCaleb, Xiaolong Wang, Jan Kautz, Yejin Choi, James Zou, Carlos Guestrin, Yu Sun</li>
+            <li><strong>提交日期：</strong>2026 年 1 月 22 日（v1）</li>
+            <li><strong>机构：</strong>Stanford、NVIDIA、Astera Institute、UC San Diego、Together AI</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-grid reveal" id="setup" style="animation-delay: 0.12s;">
+      <article class="card">
+        <div class="lang" data-lang="en">
+          <div class="level" data-level="hs">
+            <h2>Problem setup (plain language)</h2>
+            <ul class="clean-list">
+              <li><strong>Problem:</strong> a text description of a task (math, code, biology).</li>
+              <li><strong>State:</strong> a candidate solution (code, kernel, or mathematical object).</li>
+              <li><strong>Reward:</strong> a score you can compute (speed, accuracy, bound quality).</li>
+              <li><strong>Discovery:</strong> find a solution that beats the current best score.</li>
+            </ul>
+          </div>
+          <div class="level" data-level="grad">
+            <h2>Problem setup: discovery as an MDP</h2>
+            <ul class="clean-list">
+              <li><strong>Problem description d:</strong> task text fed to the policy.</li>
+              <li><strong>State s:</strong> candidate solution (e.g., kernel code or step function).</li>
+              <li><strong>Reward R(s):</strong> continuous score (e.g., 1/runtime, 1/MSE).</li>
+              <li><strong>Best-known:</strong> s_sota with r_sota = R(s_sota).</li>
+              <li><strong>Discovery:</strong> any s with R(s) &gt; r_sota.</li>
+            </ul>
+            <p class="note">Rewards are continuous; invalid solutions get 0.</p>
+          </div>
+        </div>
+        <div class="lang" data-lang="zh" lang="zh-Hans">
+          <div class="level" data-level="hs">
+            <h2>问题定义（通俗版）</h2>
+            <ul class="clean-list">
+              <li><strong>问题：</strong>一段描述任务的文本。</li>
+              <li><strong>状态：</strong>一个候选解（代码、kernel 或数学构造）。</li>
+              <li><strong>奖励：</strong>可计算的分数（速度、准确率、界的好坏）。</li>
+              <li><strong>发现：</strong>找到比分别最好更高的解。</li>
+            </ul>
+          </div>
+          <div class="level" data-level="grad">
+            <h2>问题定义：以 MDP 形式化“发现”</h2>
+            <ul class="clean-list">
+              <li><strong>问题描述 d：</strong>输入给策略的任务文本。</li>
+              <li><strong>状态 s：</strong>候选解（kernel 代码或分段函数）。</li>
+              <li><strong>奖励 R(s)：</strong>连续评分（如 1/运行时间、1/MSE）。</li>
+              <li><strong>当前最优：</strong>s_sota 与 r_sota = R(s_sota)。</li>
+              <li><strong>发现：</strong>任何满足 R(s) &gt; r_sota 的解。</li>
+            </ul>
+            <p class="note">奖励为连续值，无效解记为 0。</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="lang" data-lang="en">
+          <div class="level" data-level="hs">
+            <h2>Search + reuse (intuition)</h2>
+            <ul class="clean-list">
+              <li>Try many solutions and keep the best ones.</li>
+              <li>Start from an empty solution to explore new ideas.</li>
+              <li>Reuse good past attempts to make deeper progress.</li>
+              <li>Also reuse notes/ideas from earlier attempts as hints.</li>
+            </ul>
+          </div>
+          <div class="level" data-level="grad">
+            <h2>Search + reuse baselines</h2>
+            <ul class="clean-list">
+              <li><strong>Best-of-N:</strong> i.i.d. rollouts from πθ with s = s_sota or &lt;empty&gt;.</li>
+              <li><strong>State reuse:</strong> sample s_i from a buffer H_i via reuse(H_i).</li>
+              <li><strong>State-action reuse:</strong> reuse s_i plus context c_i derived from prior actions.</li>
+              <li><strong>Effect:</strong> reuse adds extra timesteps and extends effective horizon.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lang" data-lang="zh" lang="zh-Hans">
+          <div class="level" data-level="hs">
+            <h2>搜索与复用（直观版）</h2>
+            <ul class="clean-list">
+              <li>反复尝试，保留最好解。</li>
+              <li>从空解开始以探索新思路。</li>
+              <li>复用好解继续改进，进度更深。</li>
+              <li>把以前的“想法和注释”也当作提示。</li>
+            </ul>
+          </div>
+          <div class="level" data-level="grad">
+            <h2>搜索与复用基线</h2>
+            <ul class="clean-list">
+              <li><strong>Best-of-N：</strong>从 πθ 独立采样 N 次（s = s_sota 或 &lt;empty&gt;）。</li>
+              <li><strong>状态复用：</strong>从缓冲区 H_i 用 reuse(H_i) 采样 s_i。</li>
+              <li><strong>状态-动作复用：</strong>复用 s_i，并把历史动作整理成上下文 c_i。</li>
+              <li><strong>效果：</strong>复用相当于增加时间步，延长有效时长。</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="flow reveal" id="method" style="animation-delay: 0.18s;">
+      <div class="section-header">
+        <div class="lang" data-lang="en">
+          <div class="level" data-level="hs">
+            <h2>Method (big idea)</h2>
+            <p>Instead of optimizing the average score, focus on the single best solution and search around it.</p>
+          </div>
+          <div class="level" data-level="grad">
+            <h2>TTT-Discover: objective + reuse</h2>
+            <p>Entropic objective emphasizes max reward; PUCT prioritizes high-potential states.</p>
+          </div>
+        </div>
+        <div class="lang" data-lang="zh" lang="zh-Hans">
+          <div class="level" data-level="hs">
+            <h2>方法（大思路）</h2>
+            <p>不追求平均分，而是集中资源找到“最强单解”。</p>
+          </div>
+          <div class="level" data-level="grad">
+            <h2>TTT-Discover：目标与复用</h2>
+            <p>熵目标强调最大回报，PUCT 负责挑选高潜力起点。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="method-grid">
+        <article class="card">
+          <div class="lang" data-lang="en">
+            <div class="level" data-level="hs">
+              <h3>How it runs (simple loop)</h3>
+              <ol class="step-list">
+                <li>Pick a past attempt (or empty start).</li>
+                <li>Generate a new solution.</li>
+                <li>Score it with the task evaluator.</li>
+                <li>Store it and train a bit using this feedback.</li>
+                <li>Repeat and keep the best solution.</li>
+              </ol>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>Algorithm loop (compressed)</h3>
+              <ol class="step-list">
+                <li>Sample (s_i, c_i) via reuse(H_i).</li>
+                <li>Draw action a_i ~ π_{θ_i}(· | d, s_i, c_i).</li>
+                <li>Parse/execute to get s'_i and reward r_i = R(s'_i).</li>
+                <li>Add (s_i, a_i, s'_i, r_i) to H_{i+1}.</li>
+                <li>Update θ with test-time RL; return best s by reward.</li>
+              </ol>
+            </div>
+          </div>
+          <div class="lang" data-lang="zh" lang="zh-Hans">
+            <div class="level" data-level="hs">
+              <h3>运行流程（简化）</h3>
+              <ol class="step-list">
+                <li>挑一个历史解（或空解）。</li>
+                <li>生成新的解。</li>
+                <li>用评估器打分。</li>
+                <li>存入历史并做一次训练更新。</li>
+                <li>循环，保留最好解。</li>
+              </ol>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>算法流程（压缩版）</h3>
+              <ol class="step-list">
+                <li>用 reuse(H_i) 采样 (s_i, c_i)。</li>
+                <li>采样 a_i ~ π_{θ_i}(· | d, s_i, c_i)。</li>
+                <li>解析/执行得到 s'_i 与 r_i = R(s'_i)。</li>
+                <li>将 (s_i, a_i, s'_i, r_i) 追加到 H_{i+1}。</li>
+                <li>测试时 RL 更新 θ，输出最高分解。</li>
+              </ol>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="lang" data-lang="en">
+            <div class="level" data-level="hs">
+              <h3>Two key choices</h3>
+              <ul class="clean-list">
+                <li><strong>Objective:</strong> reward the best attempt, not the average.</li>
+                <li><strong>Reuse:</strong> pick starting points that are good but not all the same.</li>
+              </ul>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>Objective + PUCT (from the paper)</h3>
+              <p class="equation">Entropic objective:</p>
+              <p class="code">Jβ(θ) = E_{s~reuse(H)} [ log E_{a~πθ(.|s)} exp(β(s)·R(s,a)) ]</p>
+              <p class="equation">Advantage with KL penalty:</p>
+              <p class="code">A(a;s) = wβ(s)(a) − 1 − λ log(πθ(a|s) / πθ0(a|s))</p>
+              <p class="equation">PUCT reuse score:</p>
+              <p class="code">score(s) = Q(s) + c · P(s) · sqrt(1 + T) / (1 + n(s))</p>
+              <p class="note">Q(s) uses max child reward (not mean); β is set adaptively via KL constraints.</p>
+            </div>
+          </div>
+          <div class="lang" data-lang="zh" lang="zh-Hans">
+            <div class="level" data-level="hs">
+              <h3>两个关键点</h3>
+              <ul class="clean-list">
+                <li><strong>目标：</strong>奖励“最好一次”，而不是平均值。</li>
+                <li><strong>复用：</strong>起点既偏向好解也保持探索。</li>
+              </ul>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>目标函数与 PUCT（来自论文）</h3>
+              <p class="equation">熵目标：</p>
+              <p class="code">Jβ(θ) = E_{s~reuse(H)} [ log E_{a~πθ(.|s)} exp(β(s)·R(s,a)) ]</p>
+              <p class="equation">含 KL 惩罚的优势：</p>
+              <p class="code">A(a;s) = wβ(s)(a) − 1 − λ log(πθ(a|s) / πθ0(a|s))</p>
+              <p class="equation">PUCT 评分：</p>
+              <p class="code">score(s) = Q(s) + c · P(s) · sqrt(1 + T) / (1 + n(s))</p>
+              <p class="note">Q(s) 取子节点最大奖励；β 通过 KL 约束自适应设置。</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="results reveal" id="results" style="animation-delay: 0.3s;">
+      <div class="section-header">
+        <div class="lang" data-lang="en">
+          <div class="level" data-level="hs">
+            <h2>Results (high level)</h2>
+            <p>The method improves best-known results in math, GPU kernels, algorithms, and biology.</p>
+          </div>
+          <div class="level" data-level="grad">
+            <h2>Results (with numbers)</h2>
+            <p>Scores and runtimes are from the paper’s summary table and task sections.</p>
+          </div>
+        </div>
+        <div class="lang" data-lang="zh" lang="zh-Hans">
+          <div class="level" data-level="hs">
+            <h2>结果（概览）</h2>
+            <p>在数学、GPU kernel、算法竞赛、生物任务上都有提升。</p>
+          </div>
+          <div class="level" data-level="grad">
+            <h2>结果（含数值）</h2>
+            <p>数值来自论文汇总表与任务章节。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-grid">
+        <article class="card">
+          <div class="lang" data-lang="en">
+            <div class="level" data-level="hs">
+              <h3>Mathematics</h3>
+              <p>Finds better bounds on classic problems by searching over constructive certificates.</p>
+              <p class="note">Example: improves Erdős’ minimum overlap bound and one autocorrelation inequality.</p>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>Mathematics</h3>
+              <ul class="clean-list">
+                <li><strong>Erdős min overlap:</strong> 0.380876 (best human 0.380927).</li>
+                <li><strong>AC1 upper bound:</strong> 1.50286 (best human 1.50973).</li>
+                <li><strong>AC2:</strong> best 0.959, not a discovery.</li>
+                <li><strong>Construction:</strong> 600-piece step function (vs 51-piece human).</li>
+              </ul>
+            </div>
+          </div>
+          <div class="lang" data-lang="zh" lang="zh-Hans">
+            <div class="level" data-level="hs">
+              <h3>数学</h3>
+              <p>通过搜索数学构造（证书）得到更好的界。</p>
+              <p class="note">例如：改进 Erdős 最小重叠与一条自相关不等式。</p>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>数学</h3>
+              <ul class="clean-list">
+                <li><strong>Erdős 最小重叠：</strong>0.380876（人类最好 0.380927）。</li>
+                <li><strong>AC1 上界：</strong>1.50286（人类最好 1.50973）。</li>
+                <li><strong>AC2：</strong>最好 0.959，但未达新发现。</li>
+                <li><strong>构造：</strong>600 段分段函数（人类最好 51 段）。</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="lang" data-lang="en">
+            <div class="level" data-level="hs">
+              <h3>GPU kernels (TriMul)</h3>
+              <p>Generates faster GPU kernels by fusing operations and reducing memory traffic.</p>
+              <p class="note">Up to ~2× faster than prior art on GPUMode TriMul.</p>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>GPU kernels (TriMul)</h3>
+              <ul class="clean-list">
+                <li><strong>A100:</strong> 2198 μs vs best human 4531 μs.</li>
+                <li><strong>H100:</strong> 1161 μs vs best human 1371 μs.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="lang" data-lang="zh" lang="zh-Hans">
+            <div class="level" data-level="hs">
+              <h3>GPU kernel（TriMul）</h3>
+              <p>通过更深的融合与更低的内存流量得到更快的 kernel。</p>
+              <p class="note">在 GPUMode TriMul 上可达约 2× 提升。</p>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>GPU kernel（TriMul）</h3>
+              <ul class="clean-list">
+                <li><strong>A100：</strong>2198 μs（人类最好 4531 μs）。</li>
+                <li><strong>H100：</strong>1161 μs（人类最好 1371 μs）。</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="lang" data-lang="en">
+            <div class="level" data-level="hs">
+              <h3>Algorithm competitions</h3>
+              <p>Writes stronger heuristic algorithms for AtCoder contests.</p>
+              <p class="note">Exceeds the best known score on AHC039.</p>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>Algorithm competitions (AtCoder AHC)</h3>
+              <ul class="clean-list">
+                <li><strong>Contests:</strong> ahc039 (geometry) and ahc058 (production).</li>
+                <li><strong>AHC039:</strong> 567,062 vs best human 566,997.</li>
+                <li><strong>Environment:</strong> C++ code; reward = score on local tests.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="lang" data-lang="zh" lang="zh-Hans">
+            <div class="level" data-level="hs">
+              <h3>算法竞赛</h3>
+              <p>自动写出更强的启发式算法。</p>
+              <p class="note">在 AHC039 上超越人类最好成绩。</p>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>算法竞赛（AtCoder AHC）</h3>
+              <ul class="clean-list">
+                <li><strong>任务：</strong>ahc039（几何）与 ahc058（生产调度）。</li>
+                <li><strong>AHC039：</strong>567,062（人类最好 566,997）。</li>
+                <li><strong>环境：</strong>C++ 代码；本地测试得分。</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="lang" data-lang="en">
+            <div class="level" data-level="hs">
+              <h3>Biology (single-cell denoising)</h3>
+              <p>Improves denoising quality on standard single-cell benchmarks.</p>
+              <p class="note">Score improves from 0.64 to 0.71 on PBMC.</p>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>Biology (single-cell denoising)</h3>
+              <ul class="clean-list">
+                <li><strong>Baseline:</strong> MAGIC.</li>
+                <li><strong>Improvements:</strong> gene-adaptive ensembling, low-rank SVD, log-space polishing.</li>
+                <li><strong>Score:</strong> 0.71 (PBMC) vs MAGIC 0.64.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="lang" data-lang="zh" lang="zh-Hans">
+            <div class="level" data-level="hs">
+              <h3>生物（单细胞去噪）</h3>
+              <p>在单细胞数据去噪上提升指标表现。</p>
+              <p class="note">PBMC 得分从 0.64 提升到 0.71。</p>
+            </div>
+            <div class="level" data-level="grad">
+              <h3>生物（单细胞去噪）</h3>
+              <ul class="clean-list">
+                <li><strong>基线：</strong>MAGIC。</li>
+                <li><strong>改进：</strong>基因自适应集成、低秩 SVD、对数空间抛光。</li>
+                <li><strong>得分：</strong>PBMC 0.71（MAGIC 0.64）。</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="resources reveal" id="resources" style="animation-delay: 0.36s;">
+      <div class="section-header">
+        <div class="lang" data-lang="en">
+          <h2>Resources</h2>
+          <p>Primary links from the paper and project page.</p>
+        </div>
+        <div class="lang" data-lang="zh" lang="zh-Hans">
+          <h2>资源</h2>
+          <p>论文与项目主页链接。</p>
+        </div>
+      </div>
+      <div class="button-row">
+        <a class="btn" href="https://arxiv.org/abs/2601.16175" target="_blank" rel="noreferrer">arXiv Abstract</a>
+        <a class="btn" href="https://test-time-training.github.io/discover.pdf" target="_blank" rel="noreferrer">PDF</a>
+        <a class="btn" href="https://test-time-training.github.io/discover/" target="_blank" rel="noreferrer">Project Page</a>
+        <a class="btn" href="https://github.com/test-time-training/discover" target="_blank" rel="noreferrer">Code</a>
+      </div>
+      <div class="citation-card">
+        <div class="lang" data-lang="en">
+          <h3>Suggested citation</h3>
+          <p>Yuksekgonul et al., <em>Learning to Discover at Test Time</em>, arXiv:2601.16175 (2026).</p>
+        </div>
+        <div class="lang" data-lang="zh" lang="zh-Hans">
+          <h3>建议引用</h3>
+          <p>Yuksekgonul 等，<em>Learning to Discover at Test Time</em>，arXiv:2601.16175 (2026)。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="lang" data-lang="en">
+      <p>This page offers high-school and graduate versions. For full details, see the original paper.</p>
+    </div>
+    <div class="lang" data-lang="zh" lang="zh-Hans">
+      <p>本页含高中版与研究生版，完整细节请以论文原文为准。</p>
+    </div>
+  </footer>
+
+  <script src="/papers/learning-to-discover-at-test-time/script.js"></script>
+</body>
+</html>

@@ -23,9 +23,9 @@
       <span class="brand-id">Web Any Paper</span>
     </div>
     <nav class="navlinks">
-      <a href="/">
-        <span class="lang" data-lang="en">Index</span>
-        <span class="lang" data-lang="zh" lang="zh-Hans">索引</span>
+      <a href="#papers">
+        <span class="lang" data-lang="en">Papers</span>
+        <span class="lang" data-lang="zh" lang="zh-Hans">论文</span>
       </a>
       <a href="#how">
         <span class="lang" data-lang="en">Workflow</span>
@@ -59,86 +59,99 @@
   </header>
 
   <main class="page">
-    <section id="index-view" class="view">
-      <div class="hero">
-        <div class="hero-text">
-          <div class="lang" data-lang="en">
-            <h1>WAP turns papers into bilingual, dual-level pages.</h1>
-            <p class="lede">Maintain everything in GitHub. Each paper becomes a clean URL: <strong>/paper-slug</strong>.</p>
-          </div>
-          <div class="lang" data-lang="zh" lang="zh-Hans">
-            <h1>WAP 把论文变成中英双版、双层级页面。</h1>
-            <p class="lede">全部用 GitHub 管理。每篇论文对应一个简洁 URL：<strong>/论文名</strong>。</p>
-          </div>
-          <div class="tag-row">
-            <span class="tag">Bilingual</span>
-            <span class="tag">HS + Grad</span>
-            <span class="tag">GitHub Workflow</span>
-          </div>
-        </div>
-        <div class="hero-card">
-          <div class="lang" data-lang="en">
-            <h2>Quick actions</h2>
-            <ul>
-              <li>Use search to find a paper page.</li>
-              <li>Drop a JSON file to add a new paper.</li>
-              <li>Share: <span class="muted">wap.bryan2233.top/&lt;slug&gt;</span></li>
-            </ul>
-          </div>
-          <div class="lang" data-lang="zh" lang="zh-Hans">
-            <h2>快速入口</h2>
-            <ul>
-              <li>搜索论文页面。</li>
-              <li>新增一个 JSON 文件即可发布。</li>
-              <li>分享格式：<span class="muted">wap.bryan2233.top/&lt;slug&gt;</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="search-row">
-        <input id="search-input" type="search" placeholder="Search papers / 搜索论文" />
-        <div class="count" id="paper-count"></div>
-      </div>
-
-      <div id="paper-list" class="paper-grid"></div>
-
-      <section id="how" class="card">
+    <section id="papers" class="hero">
+      <div class="hero-text">
         <div class="lang" data-lang="en">
-          <h2>Workflow</h2>
-          <ol class="step-list">
-            <li>Add a new JSON file in <code>data/papers/</code>.</li>
-            <li>Update <code>data/papers.json</code> (or run the script).</li>
-            <li>Push to GitHub → Vercel deploys automatically.</li>
-          </ol>
+          <h1>WAP turns papers into bilingual, dual-level pages.</h1>
+          <p class="lede">Each paper is its own HTML/CSS/JS page. Share it as <strong>/paper-slug</strong>.</p>
         </div>
         <div class="lang" data-lang="zh" lang="zh-Hans">
-          <h2>流程</h2>
-          <ol class="step-list">
-            <li>在 <code>data/papers/</code> 新建论文 JSON。</li>
-            <li>更新 <code>data/papers.json</code>（或运行脚本）。</li>
-            <li>推送到 GitHub → Vercel 自动部署。</li>
-          </ol>
+          <h1>WAP 把论文变成中英双版、双层级页面。</h1>
+          <p class="lede">每篇论文都是独立的 HTML/CSS/JS。分享格式：<strong>/论文名</strong>。</p>
         </div>
-      </section>
-
-      <section id="about" class="card">
+        <div class="tag-row">
+          <span class="tag">Bilingual</span>
+          <span class="tag">HS + Grad</span>
+          <span class="tag">Standalone Pages</span>
+        </div>
+      </div>
+      <div class="hero-card">
         <div class="lang" data-lang="en">
-          <h2>About WAP</h2>
-          <p>WAP is a static site with a client-side router. It renders bilingual, dual-level explanations from JSON. The same page supports both high school and graduate-level readers.</p>
+          <h2>Quick actions</h2>
+          <ul>
+            <li>Search and open a paper page.</li>
+            <li>Add a new folder under <code>/papers/&lt;slug&gt;</code>.</li>
+            <li>Deploy with GitHub → Vercel.</li>
+          </ul>
         </div>
         <div class="lang" data-lang="zh" lang="zh-Hans">
-          <h2>关于 WAP</h2>
-          <p>WAP 是纯静态站点 + 前端路由，使用 JSON 渲染中英双版、双层级讲解。</p>
+          <h2>快速入口</h2>
+          <ul>
+            <li>搜索并打开论文页。</li>
+            <li>在 <code>/papers/&lt;slug&gt;</code> 新建页面。</li>
+            <li>GitHub 推送 → Vercel 自动部署。</li>
+          </ul>
         </div>
-      </section>
+      </div>
     </section>
 
-    <section id="paper-view" class="view hidden">
-      <button id="back-btn" class="back-btn" type="button">← <span class="lang" data-lang="en">Back to index</span><span class="lang" data-lang="zh" lang="zh-Hans">返回索引</span></button>
-      <div id="paper-hero" class="paper-hero"></div>
-      <div id="paper-meta" class="paper-meta"></div>
-      <div id="paper-sections" class="paper-sections"></div>
+    <div class="search-row">
+      <input id="search-input" type="search" placeholder="Search papers / 搜索论文" />
+      <div class="count" id="paper-count"></div>
+    </div>
+
+    <div id="paper-list" class="paper-grid">
+      <a class="paper-card" href="/learning-to-discover-at-test-time" data-title="Learning to Discover at Test Time 测试时学习以发现为目标" data-tags="test-time training reinforcement learning discovery" data-arxiv="2601.16175">
+        <h3>
+          <span class="lang" data-lang="en">Learning to Discover at Test Time</span>
+          <span class="lang" data-lang="zh" lang="zh-Hans">测试时学习以“发现”为目标</span>
+        </h3>
+        <div class="level" data-level="hs">
+          <span class="lang" data-lang="en">Keep learning during testing to beat the best known solution.</span>
+          <span class="lang" data-lang="zh" lang="zh-Hans">在测试时持续学习，超越当前最好解。</span>
+        </div>
+        <div class="level" data-level="grad">
+          <span class="lang" data-lang="en">Test-time RL optimized for a single best solution under continuous rewards.</span>
+          <span class="lang" data-lang="zh" lang="zh-Hans">在连续奖励问题上，测试时强化学习聚焦单一最优解。</span>
+        </div>
+        <div class="pill-row">
+          <span class="pill">arXiv 2601.16175</span>
+          <span class="pill">TTT</span>
+          <span class="pill">RL</span>
+        </div>
+      </a>
+    </div>
+
+    <section id="how" class="card">
+      <div class="lang" data-lang="en">
+        <h2>Workflow</h2>
+        <ol class="step-list">
+          <li>Create a folder: <code>/papers/&lt;slug&gt;/</code>.</li>
+          <li>Add <code>index.html</code>, <code>styles.css</code>, <code>script.js</code>.</li>
+          <li>Link it on this index page.</li>
+          <li>Push to GitHub → Vercel deploys.</li>
+        </ol>
+      </div>
+      <div class="lang" data-lang="zh" lang="zh-Hans">
+        <h2>流程</h2>
+        <ol class="step-list">
+          <li>创建文件夹：<code>/papers/&lt;slug&gt;/</code>。</li>
+          <li>添加 <code>index.html</code>、<code>styles.css</code>、<code>script.js</code>。</li>
+          <li>在索引页加入链接。</li>
+          <li>推送到 GitHub → Vercel 自动部署。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="about" class="card">
+      <div class="lang" data-lang="en">
+        <h2>About WAP</h2>
+        <p>WAP is a static site. Every paper is a standalone web page, so you can freely design layouts or add interactive demos per paper.</p>
+      </div>
+      <div class="lang" data-lang="zh" lang="zh-Hans">
+        <h2>关于 WAP</h2>
+        <p>WAP 是纯静态站点。每篇论文都是独立页面，因此你可以自由设计布局或加入交互演示。</p>
+      </div>
     </section>
   </main>
 

@@ -1,8 +1,5 @@
 const langButtons = document.querySelectorAll('[data-lang-btn]');
 const levelButtons = document.querySelectorAll('[data-level-btn]');
-const searchInput = document.getElementById('search-input');
-const paperCards = Array.from(document.querySelectorAll('.paper-card'));
-const paperCount = document.getElementById('paper-count');
 
 const setLang = (lang) => {
   document.documentElement.setAttribute('data-lang', lang);
@@ -55,35 +52,8 @@ const getInitialLevel = () => {
   return 'hs';
 };
 
-const updateCount = () => {
-  if (!paperCount) return;
-  const visible = paperCards.filter((card) => !card.classList.contains('hidden-card')).length;
-  paperCount.textContent = `${visible} / ${paperCards.length}`;
-};
-
-const filterCards = (query) => {
-  const q = query.trim().toLowerCase();
-  paperCards.forEach((card) => {
-    const haystack = [
-      card.dataset.title,
-      card.dataset.tags,
-      card.dataset.arxiv,
-    ]
-      .filter(Boolean)
-      .join(' ')
-      .toLowerCase();
-    if (!q || haystack.includes(q)) {
-      card.classList.remove('hidden-card');
-    } else {
-      card.classList.add('hidden-card');
-    }
-  });
-  updateCount();
-};
-
 setLang(getInitialLang());
 setLevel(getInitialLevel());
-updateCount();
 
 langButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
@@ -96,9 +66,3 @@ levelButtons.forEach((btn) => {
     setLevel(btn.dataset.levelBtn);
   });
 });
-
-if (searchInput) {
-  searchInput.addEventListener('input', (event) => {
-    filterCards(event.target.value);
-  });
-}
