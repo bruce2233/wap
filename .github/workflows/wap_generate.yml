@@ -50,6 +50,10 @@ jobs:
           MODEL: codex-xhigh
         run: |
           BASE_URL="${BASE_URL:-https://openrouter.ai/api/v1}"
+          if [ -z "$OPENROUTER_API_KEY" ]; then
+            echo "::error::OPENROUTER_API_KEY is not set"
+            exit 1
+          fi
           search_args=()
           if codex --help | grep -q -- '--search'; then
             search_args+=(--search)
@@ -59,6 +63,7 @@ jobs:
           codex "${search_args[@]}" --sandbox workspace-write \
             -m "$MODEL" \
             -c "model_provider=openrouter" \
+            -c "model_providers.openrouter.name=OpenRouter" \
             -c "model_providers.openrouter.base_url=$BASE_URL" \
             -c "model_providers.openrouter.env_key=OPENROUTER_API_KEY" \
             exec --full-auto - < /tmp/codex_prompt.txt
