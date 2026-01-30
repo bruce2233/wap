@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>高中中文 | Attention Is All You Need</title>
+  <meta name="description" content="面向高中读者的 Attention Is All You Need 中文解读。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/papers/attention-is-all-you-need/styles.css" />
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="orb orb-three"></div>
+  </div>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <span>WAP PAPER</span>
+        <h1>Attention Is All You Need</h1>
+      </div>
+      <nav class="nav-links">
+        <a href="/">WAP Index</a>
+        <a href="/papers/attention-is-all-you-need/index.html">All Versions</a>
+        <a href="/papers/attention-is-all-you-need/hs-en.html">HS EN</a>
+        <a href="/papers/attention-is-all-you-need/grad-en.html">Grad EN</a>
+        <a href="/papers/attention-is-all-you-need/grad-zh.html">研究生</a>
+      </nav>
+    </header>
+
+    <section class="hero reveal">
+      <div class="hero-card primary">
+        <h2>一句话总结</h2>
+        <p>这篇论文提出 Transformer：不再用循环或卷积，只用注意力就能做翻译，训练更并行，效果更好。</p>
+        <div class="badge-row">
+          <span class="badge">高中 · 中文</span>
+          <span class="badge">Transformer</span>
+          <span class="badge">机器翻译</span>
+        </div>
+        <div class="attention-map"></div>
+      </div>
+      <div class="hero-card">
+        <h2>论文信息</h2>
+        <div class="fact-grid">
+          <div class="fact-item">作者：Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin</div>
+          <div class="fact-item">日期：2017-06-12</div>
+          <div class="fact-item">会议：NeurIPS (NIPS) 2017</div>
+          <div class="fact-item">arXiv：1706.03762</div>
+          <div class="fact-item">DOI：10.48550/arXiv.1706.03762</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problem" class="section reveal">
+      <h3>Problem setup / 背景</h3>
+      <p>传统翻译系统多用 RNN 或 CNN，需要按顺序处理句子，训练速度慢，长距离词语关系也不容易学好。作者提出：能否只靠注意力就完成翻译？</p>
+    </section>
+
+    <section id="method" class="section reveal">
+      <h3>Method / 方法</h3>
+      <p>Transformer 仍然是编码器-解码器结构，但核心变为注意力：</p>
+      <ul>
+        <li><strong>全自注意力：</strong>每个词都能“看见”句子里其他词。</li>
+        <li><strong>多头注意力：</strong>从多个视角同时关注不同关系。</li>
+        <li><strong>位置编码：</strong>用额外信号告诉模型词序。</li>
+        <li><strong>解码器遮挡：</strong>生成时不看未来词。</li>
+      </ul>
+    </section>
+
+    <section id="experiments" class="section reveal">
+      <h3>Experiments & Results / 实验与结果</h3>
+      <p>Transformer 在翻译任务上达到当时最好水平，并且训练时间更短。</p>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <h4>WMT14 英→德</h4>
+          <span>BLEU 28.4，超过之前最佳系统。</span>
+        </div>
+        <div class="metric-card">
+          <h4>WMT14 英→法</h4>
+          <span>BLEU 41.8，单模型新纪录。</span>
+        </div>
+        <div class="metric-card">
+          <h4>训练时间</h4>
+          <span>主模型约 3.5 天（8 块 GPU）。</span>
+        </div>
+        <div class="metric-card">
+          <h4>句法分析</h4>
+          <span>英文句法分析上也有竞争力。</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="limitations" class="section reveal">
+      <h3>Limitations / 局限</h3>
+      <p class="note">论文没有单独列出局限。实验主要集中在机器翻译与英文句法分析，其他任务或超长序列的表现仍需进一步验证。</p>
+    </section>
+
+    <section id="resources" class="section reveal">
+      <h3>Resources / 资源</h3>
+      <div class="resource-list">
+        <div class="resource">
+          <span>论文（arXiv）</span>
+          <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noreferrer">Open</a>
+        </div>
+        <div class="resource">
+          <span>PDF</span>
+          <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank" rel="noreferrer">Download</a>
+        </div>
+        <div class="resource">
+          <span>DOI</span>
+          <a href="https://doi.org/10.48550/arXiv.1706.03762" target="_blank" rel="noreferrer">10.48550/arXiv.1706.03762</a>
+        </div>
+        <div class="resource">
+          <span>NeurIPS 页面</span>
+          <a href="https://research.google/pubs/attention-is-all-you-need/" target="_blank" rel="noreferrer">Publication</a>
+        </div>
+        <div class="resource">
+          <span>Tensor2Tensor 实现</span>
+          <a href="https://github.com/tensorflow/tensor2tensor" target="_blank" rel="noreferrer">Code</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation" class="section reveal">
+      <h3>Suggested citation / 推荐引用</h3>
+      <div class="citation">
+        Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. 2017. “Attention Is All You Need.” arXiv:1706.03762. https://doi.org/10.48550/arXiv.1706.03762.
+      </div>
+      <button class="copy-btn" type="button" data-copy="Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. 2017. Attention Is All You Need. arXiv:1706.03762. https://doi.org/10.48550/arXiv.1706.03762.">Copy citation</button>
+    </section>
+
+    <footer class="footer">这是高中中文版本。</footer>
+  </div>
+
+  <script src="/papers/attention-is-all-you-need/script.js"></script>
+</body>
+</html>
