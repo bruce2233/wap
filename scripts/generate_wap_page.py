@@ -16,12 +16,20 @@ def slugify(text: str) -> str:
 
 
 def parse_issue_body(body: str) -> dict:
+    def normalize(value: str) -> str:
+        value = (value or "").strip()
+        if not value:
+            return ""
+        if value.lower() in {"_no response_", "no response"}:
+            return ""
+        return value
+
     def extract(section: str) -> str:
         pattern = rf"### {re.escape(section)}\s*([\s\S]*?)(?:\n### |\Z)"
         match = re.search(pattern, body)
         if not match:
             return ""
-        return match.group(1).strip()
+        return normalize(match.group(1))
 
     return {
         "paper_query": extract("Paper query"),
