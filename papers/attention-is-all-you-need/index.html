@@ -7,78 +7,124 @@
   <meta name="description" content="Choose HS or Grad level pages (EN/中文) for Attention Is All You Need." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/papers/attention-is-all-you-need/styles.css" />
 </head>
 <body>
   <div class="backdrop" aria-hidden="true">
-    <div class="orb orb-one"></div>
-    <div class="orb orb-two"></div>
-    <div class="orb orb-three"></div>
+    <div class="flare one"></div>
+    <div class="flare two"></div>
+    <div class="flare three"></div>
   </div>
 
   <div class="page">
-    <header class="topbar">
-      <div class="brand">
-        <span>WAP PAPER</span>
+    <header class="hero reveal">
+      <div>
+        <div class="eyebrow">WAP PAPER HUB</div>
         <h1>Attention Is All You Need</h1>
+        <p class="subtitle">Choose a depth level and language. Each version is a full standalone page that follows the paper's original structure from motivation to results.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="/papers/attention-is-all-you-need/hs-en.html">Start / HS EN</a>
+          <a class="btn" href="/papers/attention-is-all-you-need/grad-en.html">Grad EN</a>
+          <a class="btn" href="/papers/attention-is-all-you-need/hs-zh.html">高中 中文</a>
+          <a class="btn" href="/papers/attention-is-all-you-need/grad-zh.html">研究生 中文</a>
+        </div>
       </div>
-      <nav class="nav-links">
-        <a href="/">WAP Index</a>
-        <a href="#versions">Choose Version</a>
-        <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noreferrer">arXiv</a>
-      </nav>
+      <div class="hero-panel">
+        <div class="panel-title">Paper Snapshot</div>
+        <div class="attention-grid" aria-hidden="true"></div>
+        <div class="meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">Authors</span>
+            <div class="meta-value">Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Venue</span>
+            <div class="meta-value">NeurIPS (NIPS) 2017</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Focus</span>
+            <div class="meta-value">Sequence transduction, machine translation, self-attention</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">arXiv / DOI</span>
+            <div class="meta-value">1706.03762 / 10.48550/arXiv.1706.03762</div>
+          </div>
+        </div>
+      </div>
     </header>
 
-    <section class="hero reveal">
-      <div class="hero-card primary">
-        <h2>Pick your layer</h2>
-        <p>This hub links to four standalone pages: High School vs Grad depth, English vs 中文. Each page is a full narrative with its own sections.</p>
-        <div class="badge-row">
-          <span class="badge">HS · EN</span>
-          <span class="badge">Grad · EN</span>
-          <span class="badge">高中 · 中文</span>
-          <span class="badge">研究生 · 中文</span>
-        </div>
-        <div class="attention-map"></div>
-      </div>
-      <div class="hero-card">
-        <h2>Paper facts</h2>
-        <div class="fact-grid">
-          <div class="fact-item">Authors: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin</div>
-          <div class="fact-item">Date: 12 Jun 2017</div>
-          <div class="fact-item">Venue: NeurIPS (NIPS) 2017</div>
-          <div class="fact-item">arXiv: 1706.03762</div>
-          <div class="fact-item">DOI: 10.48550/arXiv.1706.03762</div>
-        </div>
-      </div>
-    </section>
+    <nav class="section-nav reveal" aria-label="Page sections">
+      <a href="#versions">Versions</a>
+      <a href="#snapshot">Snapshot</a>
+      <a href="#resources">Resources</a>
+    </nav>
 
-    <section id="versions" class="section reveal">
-      <h3>Versions</h3>
-      <div class="metric-grid">
-        <a class="metric-card" href="/papers/attention-is-all-you-need/hs-en.html">
-          <h4>HS · English</h4>
-          <span>Plain-language overview + key numbers.</span>
+    <section id="versions" class="chapter reveal" data-section>
+      <h2>Choose a version</h2>
+      <p>All four pages share the same backbone but differ in depth and language.</p>
+      <div class="highlight-row">
+        <a class="highlight-card" href="/papers/attention-is-all-you-need/hs-en.html">
+          <strong>HS / English</strong>
+          <div>Clear narrative + core numbers + light math.</div>
         </a>
-        <a class="metric-card" href="/papers/attention-is-all-you-need/grad-en.html">
-          <h4>Grad · English</h4>
-          <span>Technical framing, equations, design choices.</span>
+        <a class="highlight-card" href="/papers/attention-is-all-you-need/grad-en.html">
+          <strong>Grad / English</strong>
+          <div>Technical details, formulas, training setup, and analysis.</div>
         </a>
-        <a class="metric-card" href="/papers/attention-is-all-you-need/hs-zh.html">
-          <h4>高中 · 中文</h4>
-          <span>面向高中读者的通俗讲解。</span>
+        <a class="highlight-card" href="/papers/attention-is-all-you-need/hs-zh.html">
+          <strong>高中 / 中文</strong>
+          <div>面向高中读者的清晰讲解与关键数字。</div>
         </a>
-        <a class="metric-card" href="/papers/attention-is-all-you-need/grad-zh.html">
-          <h4>研究生 · 中文</h4>
-          <span>包含术语、结构与实验重点。</span>
+        <a class="highlight-card" href="/papers/attention-is-all-you-need/grad-zh.html">
+          <strong>研究生 / 中文</strong>
+          <div>结构细节、实验设置、结果与分析。</div>
         </a>
       </div>
     </section>
 
-    <footer class="footer">
-      <p>WAP — standalone pages, curated narratives.</p>
-    </footer>
+    <section id="snapshot" class="chapter reveal" data-section>
+      <h2>Paper snapshot</h2>
+      <p>The Transformer replaces recurrence and convolution with attention-only blocks, enabling parallel training and strong translation quality.</p>
+      <div class="highlight-row">
+        <div class="highlight-card">
+          <strong>Core idea</strong>
+          <div>Multi-head self-attention + position-wise feed-forward layers stacked in an encoder-decoder.</div>
+        </div>
+        <div class="highlight-card">
+          <strong>Training scale</strong>
+          <div>WMT14 En-De (4.5M) and En-Fr (36M) sentence pairs; 8x P100 GPUs.</div>
+        </div>
+        <div class="highlight-card">
+          <strong>Results</strong>
+          <div>28.4 BLEU on En-De and 41.8 BLEU on En-Fr, with fast training.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources" class="chapter reveal" data-section>
+      <h2>Resources</h2>
+      <div class="resource-list">
+        <div class="resource-item">
+          <span>arXiv Abstract</span>
+          <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noreferrer">1706.03762</a>
+        </div>
+        <div class="resource-item">
+          <span>Paper PDF</span>
+          <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank" rel="noreferrer">Download PDF</a>
+        </div>
+        <div class="resource-item">
+          <span>NeurIPS Proceedings</span>
+          <a href="https://proceedings.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html" target="_blank" rel="noreferrer">NIPS 2017</a>
+        </div>
+        <div class="resource-item">
+          <span>Reference Code</span>
+          <a href="https://github.com/tensorflow/tensor2tensor" target="_blank" rel="noreferrer">Tensor2Tensor</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">WAP - standalone paper narratives for every reader.</footer>
   </div>
 
   <script src="/papers/attention-is-all-you-need/script.js"></script>

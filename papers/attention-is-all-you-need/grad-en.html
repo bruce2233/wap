@@ -3,142 +3,189 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Grad English | Attention Is All You Need</title>
-  <meta name="description" content="Graduate-level technical overview of Attention Is All You Need." />
+  <title>Attention Is All You Need | Grad EN</title>
+  <meta name="description" content="Graduate-level walkthrough of the Transformer paper with equations and training details." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/papers/attention-is-all-you-need/styles.css" />
 </head>
 <body>
   <div class="backdrop" aria-hidden="true">
-    <div class="orb orb-one"></div>
-    <div class="orb orb-two"></div>
-    <div class="orb orb-three"></div>
+    <div class="flare one"></div>
+    <div class="flare two"></div>
+    <div class="flare three"></div>
   </div>
 
   <div class="page">
-    <header class="topbar">
-      <div class="brand">
-        <span>WAP PAPER</span>
+    <header class="hero reveal">
+      <div>
+        <div class="eyebrow">WAP PAPER / GRAD / EN</div>
         <h1>Attention Is All You Need</h1>
+        <p class="subtitle">A graduate-level walkthrough that follows the original paper structure with core equations, hyperparameters, and empirical results.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="/papers/attention-is-all-you-need/index.html">All Versions</a>
+          <a class="btn" href="/papers/attention-is-all-you-need/hs-en.html">HS EN</a>
+          <a class="btn" href="/papers/attention-is-all-you-need/hs-zh.html">高中 中文</a>
+          <a class="btn" href="/papers/attention-is-all-you-need/grad-zh.html">研究生 中文</a>
+        </div>
       </div>
-      <nav class="nav-links">
-        <a href="/">WAP Index</a>
-        <a href="/papers/attention-is-all-you-need/index.html">All Versions</a>
-        <a href="/papers/attention-is-all-you-need/hs-en.html">HS EN</a>
-        <a href="/papers/attention-is-all-you-need/hs-zh.html">高中</a>
-        <a href="/papers/attention-is-all-you-need/grad-zh.html">研究生</a>
-      </nav>
+      <div class="hero-panel">
+        <div class="panel-title">Paper Facts</div>
+        <div class="attention-grid" aria-hidden="true"></div>
+        <div class="meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">Authors</span>
+            <div class="meta-value">Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Venue</span>
+            <div class="meta-value">NeurIPS (NIPS) 2017 / arXiv 1706.03762</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Model</span>
+            <div class="meta-value">Transformer: encoder-decoder with multi-head self-attention.</div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Claim</span>
+            <div class="meta-value">Attention-only architecture beats RNN/CNN MT with better parallelism.</div>
+          </div>
+        </div>
+      </div>
     </header>
 
-    <section class="hero reveal">
-      <div class="hero-card primary">
-        <h2>Technical takeaway</h2>
-        <p>The Transformer is a sequence-to-sequence model built entirely from self-attention and position-wise feed-forward layers. It replaces recurrence and convolution with multi-head attention, enabling parallel training and strong translation quality.</p>
-        <div class="badge-row">
-          <span class="badge">Grad · EN</span>
-          <span class="badge">Self-Attention</span>
-          <span class="badge">Encoder–Decoder</span>
-        </div>
-        <div class="attention-map"></div>
-      </div>
-      <div class="hero-card">
-        <h2>Paper facts</h2>
-        <div class="fact-grid">
-          <div class="fact-item">Authors: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin</div>
-          <div class="fact-item">Date: 12 Jun 2017</div>
-          <div class="fact-item">Venue: NeurIPS (NIPS) 2017</div>
-          <div class="fact-item">arXiv: 1706.03762</div>
-          <div class="fact-item">DOI: 10.48550/arXiv.1706.03762</div>
-        </div>
-      </div>
+    <nav class="section-nav reveal" aria-label="Page sections">
+      <a href="#abstract">Abstract</a>
+      <a href="#intro">Intro</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#why">Why Self-Attention</a>
+      <a href="#training">Training</a>
+      <a href="#results">Results</a>
+      <a href="#future">Conclusion</a>
+      <a href="#resources">Resources</a>
+      <a href="#citation">Citation</a>
+    </nav>
+
+    <section id="abstract" class="chapter reveal" data-section>
+      <h2>Abstract (technical)</h2>
+      <p>The Transformer removes recurrence and convolution entirely, relying on self-attention for sequence modeling. This yields stronger translation quality and large speedups due to parallelizable computation.</p>
     </section>
 
-    <section id="problem" class="section reveal">
-      <h3>Problem setup / 背景</h3>
-      <p>Previous sequence models rely on RNNs or CNNs, which limit parallelism and create long path lengths between distant tokens. The paper asks whether attention alone can provide both expressivity and efficiency for machine translation.</p>
+    <section id="intro" class="chapter reveal" data-section>
+      <h2>Introduction & background</h2>
+      <p>Prior sequence-to-sequence models used RNNs or CNNs to encode sequences and decode outputs. These architectures impose sequential computation and long-range dependency paths.</p>
+      <p>The paper proposes that attention alone can model global dependencies with shorter paths, enabling faster training while preserving or improving accuracy.</p>
     </section>
 
-    <section id="method" class="section reveal">
-      <h3>Method / 方法</h3>
-      <p>The model is an encoder-decoder stack of identical layers with attention-centric primitives:</p>
-      <ul>
-        <li><strong>Scaled dot-product attention:</strong> each output is a weighted sum of values using query-key similarity.</li>
-      </ul>
+    <section id="architecture" class="chapter reveal" data-section>
+      <h2>Model architecture</h2>
+      <p>The Transformer keeps the encoder-decoder framework but builds each layer from two sublayers: multi-head self-attention and a position-wise feed-forward network. Residual connections wrap each sublayer, followed by layer normalization.</p>
+      <div class="formula">LayerNorm(x + Sublayer(x))</div>
+      <div class="highlight-row">
+        <div class="highlight-card">
+          <strong>Depth</strong>
+          <div>N = 6 encoder layers and 6 decoder layers (base model).</div>
+        </div>
+        <div class="highlight-card">
+          <strong>Dimensions</strong>
+          <div>d_model = 512, d_ff = 2048.</div>
+        </div>
+        <div class="highlight-card">
+          <strong>Heads</strong>
+          <div>h = 8, so d_k = d_v = 64 per head.</div>
+        </div>
+      </div>
+
+      <h3>Scaled dot-product attention</h3>
       <div class="formula">Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V</div>
-      <ul>
-        <li><strong>Multi-head attention:</strong> Q, K, V are linearly projected into h subspaces, attention is computed in parallel, then concatenated.</li>
-        <li><strong>Encoder layer:</strong> multi-head self-attention + position-wise feed-forward network.</li>
-        <li><strong>Decoder layer:</strong> masked self-attention + encoder-decoder attention + feed-forward.</li>
-        <li><strong>Residual + layer norm:</strong> each sub-layer is wrapped with residual connections and layer normalization.</li>
-        <li><strong>Positional encoding:</strong> sine/cosine functions inject token order into the model.</li>
-      </ul>
+      <p>Scaling by sqrt(d_k) stabilizes gradients. Decoder self-attention is masked to preserve autoregressive generation.</p>
+
+      <h3>Multi-head attention</h3>
+      <p>Multiple heads attend in parallel to different subspaces; outputs are concatenated and projected back to d_model.</p>
+
+      <h3>Position-wise feed-forward network</h3>
+      <p>Each token passes through the same two-layer MLP with ReLU: Linear(d_model -> d_ff) -> ReLU -> Linear(d_ff -> d_model).</p>
+
+      <h3>Embeddings & positional encoding</h3>
+      <p>The model adds sinusoidal positional encodings to token embeddings, enabling order information without recurrence.</p>
     </section>
 
-    <section id="experiments" class="section reveal">
-      <h3>Experiments & Results / 实验与结果</h3>
-      <p>The Transformer reaches state-of-the-art translation quality on WMT14 and remains competitive on English constituency parsing, while training efficiently.</p>
-      <div class="metric-grid">
-        <div class="metric-card">
-          <h4>WMT14 En-De</h4>
-          <span>BLEU 28.4, +2 BLEU over previous best systems.</span>
+    <section id="why" class="chapter reveal" data-section>
+      <h2>Why self-attention?</h2>
+      <p>Self-attention has a constant path length between any two positions (1 hop) and can be computed in parallel. Compared with RNNs or CNNs, this offers faster training and better long-range dependency modeling.</p>
+      <div class="callout">Tradeoff: self-attention has O(n^2) time and memory in sequence length, motivating restricted attention for very long inputs.</div>
+    </section>
+
+    <section id="training" class="chapter reveal" data-section>
+      <h2>Training setup</h2>
+      <p>Training data comes from WMT14 English-German (4.5M pairs) and WMT14 English-French (36M pairs) with BPE vocabularies (about 37k / 32k).</p>
+      <div class="highlight-row">
+        <div class="highlight-card">
+          <strong>Batching</strong>
+          <div>About 25k source + 25k target tokens per batch.</div>
         </div>
-        <div class="metric-card">
-          <h4>WMT14 En-Fr</h4>
-          <span>BLEU 41.8, new single-model state of the art.</span>
+        <div class="highlight-card">
+          <strong>Hardware</strong>
+          <div>8x NVIDIA P100 GPUs.</div>
         </div>
-        <div class="metric-card">
-          <h4>Training</h4>
-          <span>Reported training time around 3.5 days on 8 GPUs.</span>
-        </div>
-        <div class="metric-card">
-          <h4>Parsing</h4>
-          <span>Competitive results on English constituency parsing.</span>
+        <div class="highlight-card">
+          <strong>Schedule</strong>
+          <div>Base: 100k steps (~12h). Big: 300k steps (~3.5 days).</div>
         </div>
       </div>
+      <p>Optimization uses Adam (beta1=0.9, beta2=0.98, epsilon=1e-9). The learning rate warms up for 4,000 steps, then decays proportional to step^-0.5. Regularization includes dropout=0.1 and label smoothing=0.1.</p>
     </section>
 
-    <section id="limitations" class="section reveal">
-      <h3>Limitations / 局限</h3>
-      <p class="note">The paper does not present a dedicated limitations section. Evaluations emphasize WMT translation and English parsing, so generalization to other tasks or very long contexts requires further evidence.</p>
+    <section id="results" class="chapter reveal" data-section>
+      <h2>Results</h2>
+      <p>Transformer (big) reaches 28.4 BLEU on WMT14 EN-DE and 41.8 BLEU on EN-FR, surpassing previous systems while training in a few days.</p>
+      <div class="data-grid">
+        <div class="data-chip">EN-DE: 28.4 BLEU</div>
+        <div class="data-chip">EN-FR: 41.8 BLEU</div>
+        <div class="data-chip">Time: 3.5 days (8 P100)</div>
+      </div>
+      <p>The model also generalizes to English constituency parsing, indicating broader applicability beyond MT.</p>
     </section>
 
-    <section id="resources" class="section reveal">
-      <h3>Resources / 资源</h3>
+    <section id="future" class="chapter reveal" data-section>
+      <h2>Conclusion & outlook</h2>
+      <p>The Transformer demonstrates that attention-only architectures can dominate sequence transduction. Future work focuses on handling very long sequences with restricted attention and extending the model to other modalities.</p>
+    </section>
+
+    <section id="resources" class="chapter reveal" data-section>
+      <h2>Resources</h2>
       <div class="resource-list">
-        <div class="resource">
-          <span>Paper (arXiv abstract)</span>
-          <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noreferrer">Open</a>
+        <div class="resource-item">
+          <span>arXiv Abstract</span>
+          <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noreferrer">1706.03762</a>
         </div>
-        <div class="resource">
-          <span>PDF</span>
-          <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank" rel="noreferrer">Download</a>
+        <div class="resource-item">
+          <span>Paper PDF</span>
+          <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank" rel="noreferrer">Download PDF</a>
         </div>
-        <div class="resource">
-          <span>DOI</span>
-          <a href="https://doi.org/10.48550/arXiv.1706.03762" target="_blank" rel="noreferrer">10.48550/arXiv.1706.03762</a>
+        <div class="resource-item">
+          <span>NeurIPS Proceedings</span>
+          <a href="https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html" target="_blank" rel="noreferrer">NIPS 2017</a>
         </div>
-        <div class="resource">
-          <span>NeurIPS listing</span>
-          <a href="https://research.google/pubs/attention-is-all-you-need/" target="_blank" rel="noreferrer">Publication page</a>
-        </div>
-        <div class="resource">
-          <span>Tensor2Tensor (Transformer)</span>
-          <a href="https://github.com/tensorflow/tensor2tensor" target="_blank" rel="noreferrer">Code</a>
+        <div class="resource-item">
+          <span>Reference Code</span>
+          <a href="https://github.com/tensorflow/tensor2tensor" target="_blank" rel="noreferrer">Tensor2Tensor</a>
         </div>
       </div>
     </section>
 
-    <section id="citation" class="section reveal">
-      <h3>Suggested citation / 推荐引用</h3>
-      <div class="citation">
-        Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. 2017. “Attention Is All You Need.” arXiv:1706.03762. https://doi.org/10.48550/arXiv.1706.03762.
-      </div>
-      <button class="copy-btn" type="button" data-copy="Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. 2017. Attention Is All You Need. arXiv:1706.03762. https://doi.org/10.48550/arXiv.1706.03762.">Copy citation</button>
+    <section id="citation" class="chapter reveal" data-section>
+      <h2>Citation</h2>
+      <pre id="citation-text" class="citation">@inproceedings{vaswani2017attention,
+  title={Attention Is All You Need},
+  author={Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, Lukasz and Polosukhin, Illia},
+  booktitle={Advances in Neural Information Processing Systems},
+  year={2017}
+}</pre>
+      <button class="copy-btn" data-copy-target="citation-text">Copy BibTeX</button>
     </section>
 
-    <footer class="footer">This is the Grad English version.</footer>
+    <footer class="footer">WAP / Attention Is All You Need (Grad EN)</footer>
   </div>
 
   <script src="/papers/attention-is-all-you-need/script.js"></script>
