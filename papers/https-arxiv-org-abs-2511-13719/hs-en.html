@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Doc-Researcher (HS-EN) | WAP</title>
+  <link rel="stylesheet" href="/papers/https-arxiv-org-abs-2511-13719/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <div class="page">
+    <header class="hero reveal">
+      <div class="eyebrow">HIGH SCHOOL EDITION / ENGLISH</div>
+      <h1>How AI Reads Complex Documents: Doc-Researcher</h1>
+      <p class="subtitle">Most AI systems only "read" text. Doc-Researcher is a new system that actually understands charts, tables, and layouts like a human expert does.</p>
+    </header>
+
+    <nav class="section-nav reveal">
+      <a href="#problem">The Problem</a>
+      <a href="#how">How it Works</a>
+      <a href="#test">Testing It</a>
+      <a href="#grad">Go Deeper</a>
+    </nav>
+
+    <section id="problem" class="chapter reveal" data-section>
+      <h2>The "Wall" for Traditional AI</h2>
+      <p>Imagine asking an AI to analyze a 50-page financial report or a scientific paper. Most current AIs can grab the text, but they get confused by complex layout diagrams, math equations, or data hidden in tables. They treat everything like a flat block of words, missing the "visual language" of the document.</p>
+      <div class="callout">The Gap: AI has been "blind" to the visual structure and multimodal data (images + text) inside documents.</div>
+    </section>
+
+    <section id="#how" class="chapter reveal" data-section>
+      <h2>The Doc-Researcher Solution</h2>
+      <p>The researchers created a three-step brain for the AI:</p>
+      <div class="highlight-row">
+        <div class="highlight-card">
+          <strong>1. Smart Parsing</strong>
+          <div>It doesn't just copy text; it sees where every chart and table is, preserving its meaning.</div>
+        </div>
+        <div class="highlight-card">
+          <strong>2. Hybrid Search</strong>
+          <div>It can look for things by text descriptions or by visual looks, picking the best way to find evidence.</div>
+        </div>
+        <div class="highlight-card">
+          <strong>3. Teamwork Agents</strong>
+          <div>Instead of one try, it uses several "AI agents" that brainstorm, look for more clues, and combine them into a final answer.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="test" class="chapter reveal" data-section>
+      <h2>Real-World Results</h2>
+      <p>The team created a new test called <strong>M4DocBench</strong>. It has 158 very hard questions that requires "jumping" between different documents and looking at pictures to find the answer.</p>
+      <div class="callout">Doc-Researcher got 50.6% accuracy, which is 3.4 times better than previous top-tier AI systems!</div>
+    </section>
+
+    <section id="grad" class="chapter reveal" data-section>
+      <h2>Curious about the math and logic?</h2>
+      <p>If you want to see the specific technical architecture and deep data science behind this, check out the Graduate version.</p>
+      <a href="/papers/https-arxiv-org-abs-2511-13719/grad-en.html" class="btn primary">View Graduate Version (EN)</a>
+    </section>
+
+    <footer class="footer">WAP - Simplified paper insights.</footer>
+  </div>
+  <script src="/papers/https-arxiv-org-abs-2511-13719/script.js"></script>
+</body>
+</html>
