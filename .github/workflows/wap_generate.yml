@@ -54,7 +54,7 @@ jobs:
             echo "::error::OPENROUTER_API_KEY is not set"
             exit 1
           fi
-          MODEL="${OPENROUTER_MODEL:-codex-xhigh}"
+          MODEL="${OPENROUTER_MODEL:-google/gemini-3-flash-preview}"
           if [ "$MODEL" = "codex-xhigh" ]; then
             MODEL="openai/gpt-5.2-codex"
           fi
